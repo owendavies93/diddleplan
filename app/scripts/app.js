@@ -10,7 +10,8 @@
  */
 angular
   .module('diddleplanApp', [
-    'ui.router'
+    'ui.router',
+    'picardy.fontawesome'
   ])
   .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     //
