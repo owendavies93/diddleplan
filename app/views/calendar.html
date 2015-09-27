@@ -1,0 +1,182 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">DiddlePlan</a>
+    </div>
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8 calendar">
+      <div class="tile" ng-repeat="day in calendar">
+        <div class="tile-inner">
+          <div class="tile-header">
+            <span class="day">{{day | date:'EEEE'}}</span>
+            <span class="date">{{day | date:'MMM d'}}</span>
+          </div>
+
+          <ul dnd-list="tasks"
+            dnd-allowed-types="types"
+            dnd-disable-if="false"
+            ng-attr-id="{{day}}">
+
+            <li ng-repeat="item in tasks | filterDate:day"
+                dnd-draggable="item"
+                dnd-type="item.type"
+                dnd-disable-if="item.type == 'unknown'"
+                dnd-moved="removeTask(item)"
+                dnd-effect-allowed="move"
+                class="background-{{item.type}}"
+                >
+                <div class="handle"><i class="fa" ng-class="[{'fa-cutlery': item.type === 'meal'}, {'fa-heartbeat': item.type === 'exercise'}, {'fa-sticky-note': item.type === 'todo'}, {'fa-shopping-cart': item.type === 'shopping'}]"></i></div>
+                <div class="name" dnd-nodrag>
+                    <input type="text" ng-model="item.name" class="background-{{item.type}} form-control input-sm">
+                </div>
+            </li>
+
+            <li class="dndPlaceholder">
+                Drop things here
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 sidebar">
+      <div class="tile">
+        <div class="tile-inner">
+          <div class="tile-header">
+            <span>Todo</span>
+            <span class="add-item" ng-click="addItem('todo', 'todos')"><i class="fa fa-plus"></i></span>
+          </div>
+
+          <ul dnd-list="tasks"
+            dnd-allowed-types="[types[0]]"
+            dnd-disable-if="false">
+
+            <li ng-repeat="todo in tasks | filter:isTodo"
+                dnd-draggable="todo"
+                dnd-type="todo.type"
+                dnd-disable-if="todo.type == 'unknown'"
+                dnd-moved="removeTask(todo)"
+                dnd-effect-allowed="move"
+                class="background-{{todo.type}}"
+                >
+                <div class="handle"><i class="fa fa-sticky-note"></i></div>
+                <div class="name" dnd-nodrag>
+                    <input type="text" ng-model="todo.name" class="background-{{todo.type}} form-control input-sm">
+                </div>
+            </li>
+
+            <li class="dndPlaceholder">
+                Drop todos here
+            </li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="tile">
+        <div class="tile-inner">
+          <div class="tile-header">
+            <span>Exercise</span>
+            <span class="add-item" ng-click="addItem('exercise', 'exercises')"><i class="fa fa-plus"></i></span>
+          </div>
+
+          <ul dnd-list="tasks"
+            dnd-allowed-types="[types[1]]"
+            dnd-disable-if="false">
+
+            <li ng-repeat="exercise in tasks | filter:isExercise"
+                dnd-draggable="exercise"
+                dnd-type="exercise.type"
+                dnd-disable-if="exercise.type == 'unknown'"
+                dnd-moved="removeTask(exercise)"
+                dnd-effect-allowed="move"
+                class="background-{{exercise.type}}"
+                >
+                <div class="handle"><i class="fa fa-heartbeat"></i></i></div>
+                <div class="name" dnd-nodrag>
+                    <input type="text" ng-model="exercise.name" class="background-{{exercise.type}} form-control input-sm">
+                </div>
+            </li>
+
+            <li class="dndPlaceholder">
+                Drop exercises here
+            </li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="tile">
+        <div class="tile-inner">
+          <div class="tile-header">
+            <span>Meals</span>
+            <span class="add-item" ng-click="addItem('meal', 'meals')"><i class="fa fa-plus"></i></span>
+          </div>
+
+          <ul dnd-list="tasks"
+            dnd-allowed-types="[types[2]]"
+            dnd-disable-if="false">
+
+            <li ng-repeat="meal in tasks | filter:isMeal"
+                dnd-draggable="meal"
+                dnd-type="meal.type"
+                dnd-disable-if="meal.type == 'unknown'"
+                dnd-moved="removeTask(meal)"
+                dnd-effect-allowed="move"
+                class="background-{{meal.type}}"
+                >
+                <div class="handle"><i class="fa fa-cutlery"></i></div>
+                <div class="name" dnd-nodrag>
+                    <input type="text" ng-model="meal.name" class="background-{{meal.type}} form-control input-sm">
+                </div>
+            </li>
+
+            <li class="dndPlaceholder">
+                Drop meals here
+            </li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="tile">
+        <div class="tile-inner">
+          <div class="tile-header">
+            <span>Shopping List</span>
+            <span class="add-item" ng-click="addItem('meal', 'shoppingList')"><i class="fa fa-plus"></i></span>
+          </div>
+
+          <ul dnd-list="tasks"
+            dnd-allowed-types="[types[2]]"
+            dnd-disable-if="false">
+
+            <li ng-repeat="meal in tasks | filter:isShopping"
+                dnd-draggable="meal"
+                dnd-type="meal.type"
+                dnd-disable-if="tasks.type == 'unknown'"
+                dnd-moved="removeTask(meal)"
+                dnd-effect-allowed="move"
+                class="background-{{meal.type}}"
+                >
+                <div class="handle"><i class="fa fa-shopping-cart"></i></div>
+                <div class="name" dnd-nodrag>
+                    <input type="text" ng-model="meal.name" class="background-{{meal.type}} form-control input-sm">
+                </div>
+            </li>
+
+            <li class="dndPlaceholder">
+                Drop shopping here
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

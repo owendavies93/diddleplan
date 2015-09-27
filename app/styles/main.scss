@@ -3,3 +3,170 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 @import "font-awesome/scss/font-awesome.scss";
 // endbower
+
+body {
+  background: #F1EFA5;
+}
+
+/* Navbar */
+.navbar {
+  border-radius: 0;
+  margin-bottom: 0;
+  background: #554236;
+  border: none;
+}
+
+.navbar-header {
+  text-align: center;
+}
+
+.navbar-header .navbar-brand {
+  color: #fefefe;
+}
+
+/* Main content */
+.calendar {
+  padding-top: 15px;
+}
+
+.tile {
+  width: 33.33%;
+  height: 300px;
+  float: left;
+  padding: 10px;
+}
+
+.tile-inner {
+  height: 100%;
+  background: #fefefe;
+}
+
+.tile-header {
+  /*border-left: 8px solid #F77825;*/
+  border-bottom: 5px solid #F1EFA5;
+  padding: .5em 1em .7em 1em;
+  font-size: 1.5em;
+  color: #554236;
+}
+
+.tile-header .add-item {
+  float: right;
+}
+
+.day {
+
+}
+
+.date {
+  font-size: 0.6em;
+  color: #bbb;
+  float: right;
+}
+
+/* Sidebar */
+.sidebar {
+  height: 100%;
+  padding-top: 15px;
+  background: #60B99A;
+}
+
+.sidebar .tile {
+  width: 100%;
+  height: auto;
+}
+
+.sidebar .tile-header {
+  background: #60B99A;
+  color: white;
+  border-bottom: none;
+  padding: .5em .5em .5em 0;
+}
+
+.sidebar .tile-inner {
+  min-height: 150px;
+}
+
+/* Drag and drop */
+
+/**
+ * For the correct positioning of the placeholder element, the dnd-list and
+ * it's children must have position: relative
+ */
+ul[dnd-list],
+ul[dnd-list] > li {
+  position: relative;
+}
+
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+ul[dnd-list] {
+  min-height: 42px;
+  padding-left: 0px;
+}
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+ul[dnd-list] .dndDraggingSource {
+  display: none;
+}
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+ul[dnd-list] .dndPlaceholder {
+  display: block;
+  background-color: #ddd;
+  min-height: 42px;
+}
+
+/**
+ * The dnd-lists's child elements currently MUST have
+ * position: relative. Otherwise we can not determine
+ * whether the mouse pointer is in the upper or lower
+ * half of the element we are dragging over. In other
+ * browsers we can use event.offsetY for this.
+ */
+ul[dnd-list] li {
+  background-color: #fff;
+  border-radius: 0;
+  display: block;
+  padding-top: 10px;
+  height: 40px;
+
+  /* Disable text selection if item is not draggable */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+ul[dnd-list] input {
+  border-radius: 0;
+
+}
+
+/**
+ * Handle positioning
+ */
+.handle {
+  width: 3em;
+  padding: 5px;
+  text-align: center;
+  cursor: move;
+  float: left;
+}
+
+.name {
+  width: calc(100% - 4em);
+  float: left;
+}

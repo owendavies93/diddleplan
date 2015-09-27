@@ -11,6 +11,7 @@
 angular
   .module('diddleplanApp', [
     'ui.router',
+    'dndLists',
     'picardy.fontawesome'
   ])
   .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
