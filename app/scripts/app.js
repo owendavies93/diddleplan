@@ -17,12 +17,12 @@ angular
   .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     //
     // For any unmatched url, redirect to /
-    $urlRouterProvider.otherwise("/");
+    $urlRouterProvider.otherwise("/diddleplan");
     //
     // Now set up the states
     $stateProvider
       .state('calendar', {
-        url: "/",
+        url: "/diddleplan",
         templateUrl: "/views/calendar.html",
         controller: "CalendarCtrl"
       });
