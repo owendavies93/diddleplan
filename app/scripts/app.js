@@ -21,7 +21,7 @@ angular
     //
     // Now set up the states
     $stateProvider
-      .state('calendar', {
+      .state("calendar", {
         url: "/diddleplan",
         templateUrl: "/views/calendar.html",
         controller: "CalendarCtrl"
