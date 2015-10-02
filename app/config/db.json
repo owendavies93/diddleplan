@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "diddle",
+    "password": "diddle",
+    "database": "diddleplan",
+    "host":     "127.0.0.1",
+    "dialect":  "mysql"
+  },
+  "test": {
+    "username": "diddle",
+    "password": "diddle",
+    "database": "diddleplan",
+    "host":     "127.0.0.1",
+    "dialect":  "mysql"
+  },
+  "production": {
+    "username": "prod_user",
+    "password": "prod_pass",
+    "database": "prod_db",
+    "host":     "127.0.0.1",
+    "dialect":  "mysql"
+  }
+}
