@@ -1,0 +1,75 @@
+[
+  {
+    "model": "User",
+    "data": {
+      "username": "owen"
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "username": "anna"
+    }
+  },
+
+  {
+    "model": "Task",
+    "data": {
+      "name": "Clean the Bathrooms",
+      "task_type": "todo",
+      "date": null,
+      "moveable": true,
+      "auto_moveable": null
+    }
+  },
+  {
+    "model": "Task",
+    "data": {
+      "name": "Mow the Lawn",
+      "task_type": "todo",
+      "date": null,
+      "moveable": true,
+      "auto_moveable": null
+    }
+  },
+  {
+    "model": "Task",
+    "data": {
+      "name": "Washing",
+      "task_type": "todo",
+      "date": null,
+      "moveable": true,
+      "auto_moveable": null
+    }
+  },
+  {
+    "model": "Task",
+    "data": {
+      "name": "Run",
+      "task_type": "exercise",
+      "date": null,
+      "moveable": true,
+      "auto_moveable": null
+    }
+  },
+  {
+    "model": "Task",
+    "data": {
+      "name": "Beef Stir Fry",
+      "task_type": "meal",
+      "date": null,
+      "moveable": true,
+      "auto_moveable": null
+    }
+  },
+  {
+    "model": "Task",
+    "data": {
+      "name": "Curry",
+      "task_type": "meal",
+      "date": null,
+      "moveable": true,
+      "auto_moveable": null
+    }
+  }
+]
