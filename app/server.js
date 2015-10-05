@@ -17,7 +17,7 @@ app.use(express.static('.tmp'));
 app.use('/api', api);
 app.use('/diddleplan', web);
 
-models.sequelize.sync().then(function () {
+models.sequelize.sync({ force: true }).then(function () {
   fixtures.loadFile(__dirname + '/config/test_data.json', models).then(function(){
     var server = app.listen(9000, function() {
       console.log('Express sever started');

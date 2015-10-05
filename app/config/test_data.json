@@ -2,6 +2,12 @@
   {
     "model": "User",
     "data": {
+      "username": "default"
+    }
+  },
+  {
+    "model": "User",
+    "data": {
       "username": "owen"
     }
   },
@@ -19,7 +25,8 @@
       "task_type": "todo",
       "date": null,
       "moveable": true,
-      "auto_moveable": null
+      "auto_moveable": null,
+      "UserId": 2
     }
   },
   {
@@ -29,7 +36,8 @@
       "task_type": "todo",
       "date": null,
       "moveable": true,
-      "auto_moveable": null
+      "auto_moveable": null,
+      "UserId": 3
     }
   },
   {
@@ -39,7 +47,8 @@
       "task_type": "todo",
       "date": null,
       "moveable": true,
-      "auto_moveable": null
+      "auto_moveable": null,
+      "UserId": 1
     }
   },
   {
@@ -49,7 +58,8 @@
       "task_type": "exercise",
       "date": null,
       "moveable": true,
-      "auto_moveable": null
+      "auto_moveable": null,
+      "UserId": 3
     }
   },
   {
@@ -59,7 +69,8 @@
       "task_type": "meal",
       "date": null,
       "moveable": true,
-      "auto_moveable": null
+      "auto_moveable": null,
+      "UserId": 1
     }
   },
   {
@@ -69,7 +80,8 @@
       "task_type": "meal",
       "date": null,
       "moveable": true,
-      "auto_moveable": null
+      "auto_moveable": null,
+      "UserId": 1
     }
   }
 ]
