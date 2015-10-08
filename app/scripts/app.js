@@ -24,7 +24,14 @@ angular
       .state("calendar", {
         url: "/diddleplan",
         templateUrl: "/views/calendar.html",
-        controller: "CalendarCtrl"
+        controller: "CalendarCtrl",
+        resolve: {
+          tasks: ['CalendarData',
+            function(tasks) {
+              return tasks.getTasks();
+            }
+          ]
+        }
       });
 
     // use the HTML5 History API

@@ -1,5 +1,14 @@
 'use strict';
 
+angular.module('diddleplanApp')
+  .factory('CalendarData', function($http) {
+    return {
+      getTasks : function() {
+        return $http.get('http://localhost:9000/api/tasks');
+      }
+    };
+});
+
 /**
  * @ngdoc function
  * @name diddleplanApp.controller:CalendarCtrl
@@ -8,36 +17,10 @@
  * Controller of the diddleplanApp
  */
 angular.module('diddleplanApp')
-  .controller('CalendarCtrl', function ($scope) {
-    $scope.types = ['todo', 'exercise', 'meal', 'shopping'];
+  .controller('CalendarCtrl', function ($scope, tasks) {
 
-    $scope.tasks = [
-      {
-        name: 'Clean the bathrooms',
-        type: 'todo',
-        date: Date.now()
-      },
-      {
-        name: 'Mow the lawn',
-        type: 'todo'
-      },
-      {
-        name: 'Washing',
-        type: 'todo'
-      },
-      {
-        name: 'Run',
-        type: 'exercise'
-      },
-      {
-        name: 'Beef Stir Fry',
-        type: 'meal'
-      },
-      {
-        name: 'Curry',
-        type: 'shopping'
-      }
-    ];
+    $scope.tasks = tasks.data;
+    $scope.types = ['todo', 'exercise', 'meal', 'shopping'];
 
     $scope.removeTask = function(task) {
       for (var i = 0; i < $scope.tasks.length; ++i) {
@@ -76,7 +59,7 @@ angular.module('diddleplanApp')
         console.log(items);
 
         for (var j = 0; j < items; ++j) {
-          if (items[j].type === 'meal') {
+          if (items[j].taskType === 'meal') {
             remainingMeals++;
           }
         }
@@ -88,24 +71,23 @@ angular.module('diddleplanApp')
     // $scope.calculateShoppingTrip();
 
     $scope.isTodo = function(value) {
-      return (value.type === 'todo') && !value.date;
+      return (value.taskType === 'todo') && !value.date;
     };
 
     $scope.isExercise = function(value) {
-      return (value.type === 'exercise') && !value.date;
+      return (value.taskType === 'exercise') && !value.date;
     };
 
     $scope.isMeal = function(value) {
-      return (value.type === 'meal') && !value.date;
+      return (value.taskType === 'meal') && !value.date;
     };
 
     $scope.isShopping = function(value) {
-      return (value.type === 'shopping') && !value.date;
+      return (value.taskType === 'shopping') && !value.date;
     };
 
     $scope.hasDate = function(value, date) {
-      console.log(value);
-      return value &&  value.date === date;
+      return value && value.date === date;
     };
 
   });
