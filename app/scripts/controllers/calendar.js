@@ -14,6 +14,10 @@ angular.module('diddleplanApp')
       return $http.post(urlBase + '/tasks', task);
     };
 
+    taskDataFunctions.updateTask = function(task) {
+      return $http.put(urlBase + '/tasks/' + task.taskID, task);
+    };
+
     return taskDataFunctions;
   });
 
@@ -55,7 +59,7 @@ angular.module('diddleplanApp')
         "date": date,
         "moveable": true,
         "autoMoveable": null,
-        "UserId": 2
+        "UserId": 1
       };
 
       TaskData.addTask(newTaskData)
@@ -65,6 +69,12 @@ angular.module('diddleplanApp')
         .error(function(response) {
           console.log(response);
         });
+    };
+
+    $scope.updateTask = function(task) {
+      TaskData.updateTask(task).error(function(response) {
+        console.log(response);
+      });
     };
 
     var shoppingItem = {
