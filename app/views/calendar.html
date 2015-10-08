@@ -35,8 +35,14 @@
                 <input type="text"
                   ng-model="item.name"
                   ng-change="updateTask(item)"
-                  class="background-{{item.taskType}} form-control input-sm"
+                  class="background-{{item.taskType}} form-control input-sm tile-item-name"
                   placeholder="New Task">
+
+                <input type="text"
+                  ng-model="item.time"
+                  ng-change="updateTask(item)"
+                  class="background-{{item.taskType}} form-control input-sm tile-item-time"
+                  placeholder="Time">
               </div>
             </li>
 

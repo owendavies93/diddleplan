@@ -57,6 +57,17 @@ body {
   vertical-align: middle;
 }
 
+.tile-item-name {
+  display: inline-block;
+  margin-right: 5px;
+  width: 75%;
+}
+
+.tile-item-time {
+  display: inline-block;
+  width: 20%;
+}
+
 .date {
   font-size: 0.6em;
   color: #888;
