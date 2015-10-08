@@ -33,7 +33,7 @@
                 >
                 <div class="handle"><i class="fa" ng-class="[{'fa-cutlery': item.taskType === 'meal'}, {'fa-heartbeat': item.taskType === 'exercise'}, {'fa-sticky-note': item.taskType === 'todo'}, {'fa-shopping-cart': item.taskType === 'shopping'}]"></i></div>
                 <div class="name" dnd-nodrag>
-                    <input type="text" ng-model="item.name" class="background-{{item.taskType}} form-control input-sm">
+                    <input type="text" ng-model="item.name" class="background-{{item.taskType}} form-control input-sm" placeholder="New Task">
                 </div>
             </li>
 
@@ -68,7 +68,7 @@
                 >
                 <div class="handle"><i class="fa fa-sticky-note"></i></div>
                 <div class="name" dnd-nodrag>
-                    <input type="text" ng-model="todo.name" class="background-{{todo.taskType}} form-control input-sm">
+                    <input type="text" ng-model="todo.name" class="background-{{todo.taskType}} form-control input-sm" placeholder="New Task">
                 </div>
             </li>
 
@@ -101,7 +101,7 @@
                 >
                 <div class="handle"><i class="fa fa-heartbeat"></i></i></div>
                 <div class="name" dnd-nodrag>
-                    <input type="text" ng-model="exercise.name" class="background-{{exercise.taskType}} form-control input-sm">
+                    <input type="text" ng-model="exercise.name" class="background-{{exercise.taskType}} form-control input-sm" placeholder="New Task">
                 </div>
             </li>
 
@@ -134,7 +134,7 @@
                 >
                 <div class="handle"><i class="fa fa-cutlery"></i></div>
                 <div class="name" dnd-nodrag>
-                    <input type="text" ng-model="meal.name" class="background-{{meal.taskType}} form-control input-sm">
+                    <input type="text" ng-model="meal.name" class="background-{{meal.taskType}} form-control input-sm" placeholder="New Task">
                 </div>
             </li>
 
@@ -167,7 +167,7 @@
                 >
                 <div class="handle"><i class="fa fa-shopping-cart"></i></div>
                 <div class="name" dnd-nodrag>
-                    <input type="text" ng-model="meal.name" class="background-{{meal.taskType}} form-control input-sm">
+                    <input type="text" ng-model="meal.name" class="background-{{meal.taskType}} form-control input-sm" placeholder="New Task">
                 </div>
             </li>
 

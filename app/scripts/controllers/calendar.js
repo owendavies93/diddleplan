@@ -50,7 +50,7 @@ angular.module('diddleplanApp')
     $scope.addTask = function(type, date) {
       // TODO: Need to pass in or work these out
       var newTaskData = {
-        "name": "Testing123",
+        "name": "",
         "taskType": type,
         "date": date,
         "moveable": true,
