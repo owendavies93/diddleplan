@@ -22,10 +22,10 @@
     "model": "Task",
     "data": {
       "name": "Clean the Bathrooms",
-      "task_type": "todo",
+      "taskType": "todo",
       "date": null,
       "moveable": true,
-      "auto_moveable": null,
+      "autoMoveable": null,
       "UserId": 2
     }
   },
@@ -33,10 +33,10 @@
     "model": "Task",
     "data": {
       "name": "Mow the Lawn",
-      "task_type": "todo",
+      "taskType": "todo",
       "date": null,
       "moveable": true,
-      "auto_moveable": null,
+      "autoMoveable": null,
       "UserId": 3
     }
   },
@@ -44,10 +44,10 @@
     "model": "Task",
     "data": {
       "name": "Washing",
-      "task_type": "todo",
+      "taskType": "todo",
       "date": null,
       "moveable": true,
-      "auto_moveable": null,
+      "autoMoveable": null,
       "UserId": 1
     }
   },
@@ -55,10 +55,10 @@
     "model": "Task",
     "data": {
       "name": "Run",
-      "task_type": "exercise",
+      "taskType": "exercise",
       "date": null,
       "moveable": true,
-      "auto_moveable": null,
+      "autoMoveable": null,
       "UserId": 3
     }
   },
@@ -66,10 +66,10 @@
     "model": "Task",
     "data": {
       "name": "Beef Stir Fry",
-      "task_type": "meal",
+      "taskType": "meal",
       "date": null,
       "moveable": true,
-      "auto_moveable": null,
+      "autoMoveable": null,
       "UserId": 1
     }
   },
@@ -77,10 +77,10 @@
     "model": "Task",
     "data": {
       "name": "Curry",
-      "task_type": "meal",
+      "taskType": "meal",
       "date": null,
       "moveable": true,
-      "auto_moveable": null,
+      "autoMoveable": null,
       "UserId": 1
     }
   }
