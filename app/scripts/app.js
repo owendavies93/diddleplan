@@ -26,7 +26,7 @@ angular
         templateUrl: "/views/calendar.html",
         controller: "CalendarCtrl",
         resolve: {
-          tasks: ['CalendarData',
+          tasks: ['TaskData',
             function(tasks) {
               return tasks.getTasks();
             }

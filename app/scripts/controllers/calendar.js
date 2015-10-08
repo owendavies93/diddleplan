@@ -1,13 +1,21 @@
 'use strict';
 
 angular.module('diddleplanApp')
-  .factory('CalendarData', function($http) {
-    return {
-      getTasks : function() {
-        return $http.get('http://localhost:9000/api/tasks');
-      }
+  .factory('TaskData', function($http) {
+
+    var urlBase = '/api';
+    var taskDataFunctions = {};
+
+    taskDataFunctions.getTasks = function() {
+      return $http.get(urlBase + '/tasks');
     };
-});
+
+    taskDataFunctions.addTask = function(task) {
+      return $http.post(urlBase + '/tasks', task);
+    };
+
+    return taskDataFunctions;
+  });
 
 /**
  * @ngdoc function
@@ -17,7 +25,7 @@ angular.module('diddleplanApp')
  * Controller of the diddleplanApp
  */
 angular.module('diddleplanApp')
-  .controller('CalendarCtrl', function ($scope, tasks) {
+  .controller('CalendarCtrl', function ($scope, tasks, TaskData) {
 
     $scope.tasks = tasks.data;
     $scope.types = ['todo', 'exercise', 'meal', 'shopping'];
@@ -39,12 +47,24 @@ angular.module('diddleplanApp')
       $scope.calendar.push(Date.now() + oneDay * i);
     }
 
-    $scope.addItem = function(type, list) {
-      $scope[list].push({
-        name: '',
-        type: type
-      });
-      // $scope.calculateShoppingTrip();
+    $scope.addItem = function(type) {
+      // TODO: Need to pass in or work these out
+      var newTaskData = {
+        "name": "Testing123",
+        "taskType": type,
+        "date": null,
+        "moveable": true,
+        "autoMoveable": null,
+        "UserId": 2
+      };
+
+      TaskData.addTask(newTaskData)
+        .success(function(response) {
+          $scope.tasks.push(response);
+        })
+        .error(function(response) {
+          console.log(response);
+        });
     };
 
     var shoppingItem = {
