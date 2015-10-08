@@ -47,7 +47,7 @@ angular.module('diddleplanApp')
       $scope.calendar.push(Date.now() + oneDay * i);
     }
 
-    $scope.addItem = function(type) {
+    $scope.addTask = function(type) {
       // TODO: Need to pass in or work these out
       var newTaskData = {
         "name": "Testing123",
