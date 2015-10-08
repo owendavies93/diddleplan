@@ -24,6 +24,7 @@
       "name": "Clean the Bathrooms",
       "taskType": "todo",
       "date": null,
+      "time": null,
       "moveable": true,
       "autoMoveable": null,
       "UserId": 2
@@ -35,6 +36,7 @@
       "name": "Mow the Lawn",
       "taskType": "todo",
       "date": null,
+      "time": null,
       "moveable": true,
       "autoMoveable": null,
       "UserId": 3
@@ -46,6 +48,7 @@
       "name": "Washing",
       "taskType": "todo",
       "date": null,
+      "time": null,
       "moveable": true,
       "autoMoveable": null,
       "UserId": 1
@@ -57,6 +60,7 @@
       "name": "Run",
       "taskType": "exercise",
       "date": null,
+      "time": null,
       "moveable": true,
       "autoMoveable": null,
       "UserId": 3
@@ -68,6 +72,7 @@
       "name": "Beef Stir Fry",
       "taskType": "meal",
       "date": null,
+      "time": null,
       "moveable": true,
       "autoMoveable": null,
       "UserId": 1
@@ -79,6 +84,7 @@
       "name": "Curry",
       "taskType": "meal",
       "date": null,
+      "time": null,
       "moveable": true,
       "autoMoveable": null,
       "UserId": 1
