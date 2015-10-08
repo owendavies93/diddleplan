@@ -15,6 +15,7 @@
           <div class="tile-header">
             <span class="day">{{day | date:'EEEE'}}</span>
             <span class="date">{{day | date:'MMM d'}}</span>
+            <span class="add-task" ng-click="addTask('todo', day)"><i class="fa fa-plus"></i></span>
           </div>
 
           <ul dnd-list="tasks"
@@ -50,7 +51,7 @@
         <div class="tile-inner">
           <div class="tile-header">
             <span>Todo</span>
-            <span class="add-task" ng-click="addTask('todo')"><i class="fa fa-plus"></i></span>
+            <span class="add-task" ng-click="addTask('todo', null)"><i class="fa fa-plus"></i></span>
           </div>
 
           <ul dnd-list="tasks"
@@ -83,7 +84,7 @@
         <div class="tile-inner">
           <div class="tile-header">
             <span>Exercise</span>
-            <span class="add-task" ng-click="addTask('exercise')"><i class="fa fa-plus"></i></span>
+            <span class="add-task" ng-click="addTask('exercise', null)"><i class="fa fa-plus"></i></span>
           </div>
 
           <ul dnd-list="tasks"
@@ -116,7 +117,7 @@
         <div class="tile-inner">
           <div class="tile-header">
             <span>Meals</span>
-            <span class="add-task" ng-click="addTask('meal')"><i class="fa fa-plus"></i></span>
+            <span class="add-task" ng-click="addTask('meal', null)"><i class="fa fa-plus"></i></span>
           </div>
 
           <ul dnd-list="tasks"
@@ -149,7 +150,7 @@
         <div class="tile-inner">
           <div class="tile-header">
             <span>Shopping List</span>
-            <span class="add-task" ng-click="addTask('meal')"><i class="fa fa-plus"></i></span>
+            <span class="add-task" ng-click="addTask('meal', null)"><i class="fa fa-plus"></i></span>
           </div>
 
           <ul dnd-list="tasks"

@@ -53,14 +53,13 @@ body {
   float: right;
 }
 
-.day {
-
+.tile-header > .add-task > i {
+  vertical-align: middle;
 }
 
 .date {
   font-size: 0.6em;
-  color: #bbb;
-  float: right;
+  color: #888;
 }
 
 /* Sidebar */

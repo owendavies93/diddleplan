@@ -47,12 +47,12 @@ angular.module('diddleplanApp')
       $scope.calendar.push(Date.now() + oneDay * i);
     }
 
-    $scope.addTask = function(type) {
+    $scope.addTask = function(type, date) {
       // TODO: Need to pass in or work these out
       var newTaskData = {
         "name": "Testing123",
         "taskType": type,
-        "date": null,
+        "date": date,
         "moveable": true,
         "autoMoveable": null,
         "UserId": 2
