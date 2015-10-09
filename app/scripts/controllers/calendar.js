@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('diddleplanApp')
+angular.module('diddleplanService', [])
   .factory('TaskData', function($http) {
 
     var urlBase = '/api';
@@ -16,6 +16,17 @@ angular.module('diddleplanApp')
 
     taskDataFunctions.updateTask = function(task) {
       return $http.put(urlBase + '/tasks/' + task.taskID, task);
+    };
+
+    taskDataFunctions.formatTime = function(time) {
+      var result, m;
+      var re = /^\s*([01]?\d|2[0-3]):?([0-5]\d)?\s*$/;
+
+      if ((m = time.match(re))) {
+        result = (m[1].length === 2 ? "" : "0") + m[1] + ":" + (m[2] || "00");
+      }
+
+      return result;
     };
 
     return taskDataFunctions;
@@ -71,19 +82,8 @@ angular.module('diddleplanApp')
         });
     };
 
-    function formatTime(time) {
-      var result, m;
-      var re = /^\s*([01]?\d|2[0-3]):?([0-5]\d)?\s*$/;
-
-      if ((m = time.match(re))) {
-        result = (m[1].length === 2 ? "" : "0") + m[1] + ":" + (m[2] || "00");
-      }
-
-      return result;
-    }
-
     $scope.updateTask = function(task) {
-      if (task.time !== null && formatTime(task.time) !== undefined) {
+      if (task.time === null || TaskData.formatTime(task.time) !== undefined) {
         TaskData.updateTask(task).error(function(response) {
           console.log(response);
         });
