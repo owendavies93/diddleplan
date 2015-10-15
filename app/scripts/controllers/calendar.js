@@ -54,10 +54,10 @@ angular.module('diddleplanApp')
       }
     };
 
-    $scope.calendar = [Date.now()];
+    $scope.calendar = [];
 
     // create some dates
-    for (var i = 1; i < 9; ++i) {
+    for (var i = -14; i < 14; ++i) {
       var oneDay = 86400000;
       $scope.calendar.push(Date.now() + oneDay * i);
     }

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -7,9 +7,9 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-8 calendar">
+<div class="wrapper">
+  <div class="fixed-wrapper">
+    <div class="calendar fixed-content">
       <div class="tile" ng-repeat="day in calendar">
         <div class="tile-inner">
           <div class="tile-header">
@@ -54,8 +54,10 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="col-md-4 sidebar">
+  <div class="sidebar-wrapper">
+    <div class="sidebar">
       <div class="tile">
         <div class="tile-inner">
           <div class="tile-header">

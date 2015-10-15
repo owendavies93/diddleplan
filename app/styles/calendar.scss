@@ -4,16 +4,27 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "font-awesome/scss/font-awesome.scss";
 // endbower
 
+/* Colours */
+$yellow:   #F1EFA5;
+$brown:    #554236;
+$green:    #60B99A;
+$offwhite: #FEFEFE;
+$grey:     #888888;
+
 body {
-  background: #F1EFA5;
+  background: $yellow;
 }
 
-/* Navbar */
+/* Structure */
+$navbar-height: 50px;
+$cal-width: 67%;
+
 .navbar {
   border-radius: 0;
   margin-bottom: 0;
-  background: #554236;
+  background: $brown;
   border: none;
+  min-height: $navbar-height;
 }
 
 .navbar-header {
@@ -21,7 +32,46 @@ body {
 }
 
 .navbar-header .navbar-brand {
-  color: #fefefe;
+  color: $offwhite;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: table;
+}
+
+.fixed-wrapper, .fixed-content {
+  width: $cal-width;
+  top: $navbar-height;
+  left: 15px;
+  bottom: 0;
+  padding-right: 15px;
+}
+
+.fixed-wrapper {
+  position: absolute;
+}
+
+.fixed-content {
+  position: fixed;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.sidebar-wrapper {
+  height: 100%;
+  width: 100% - $cal-width;
+  display: table-cell;
+  vertical-align: top;
+  margin-left: $cal-width;
+  padding-left: 15px;
+  padding-top: $navbar-height;
+}
+
+.sidebar {
+  // height: 100%;
 }
 
 /* Main content */
@@ -38,15 +88,14 @@ body {
 
 .tile-inner {
   height: 100%;
-  background: #fefefe;
+  background: $offwhite;
 }
 
 .tile-header {
-  /*border-left: 8px solid #F77825;*/
-  border-bottom: 5px solid #F1EFA5;
+  border-bottom: 5px solid $yellow;
   padding: .5em 1em .7em 1em;
   font-size: 1.5em;
-  color: #554236;
+  color: $brown;
 }
 
 .tile-header .add-task {
@@ -70,14 +119,16 @@ body {
 
 .date {
   font-size: 0.6em;
-  color: #888;
+  color: $grey;
 }
 
 /* Sidebar */
+.sidebar-wrapper {
+  background-color: $green;
+}
+
 .sidebar {
-  height: 100%;
-  padding-top: 15px;
-  background: #60B99A;
+  background: $green;
 }
 
 .sidebar .tile {
@@ -86,7 +137,7 @@ body {
 }
 
 .sidebar .tile-header {
-  background: #60B99A;
+  background: $green;
   color: white;
   border-bottom: none;
   padding: .5em .5em .5em 0;
