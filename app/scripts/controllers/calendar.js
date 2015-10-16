@@ -54,11 +54,11 @@ angular.module('diddleplanApp')
       }
     };
 
-    $scope.calendar = [];
-
     // create some dates
-    for (var i = -14; i < 14; ++i) {
-      var oneDay = 86400000;
+    $scope.calendar = [];
+    $scope.today = Date.now();
+    var oneDay = 86400000;
+    for (var i = -9; i < 12; ++i) {
       $scope.calendar.push(Date.now() + oneDay * i);
     }
 
@@ -133,4 +133,19 @@ angular.module('diddleplanApp')
       return value && value.date === date;
     };
 
+  });
+
+angular.module('diddleplanApp')
+  .directive('scrollIf', function($timeout) {
+    return {
+      restrict: 'A',
+      link: function(scope, elem, attrs) {
+        var cond = scope.$eval(attrs.scrollIf);
+        if (cond) {
+          $timeout(function() {
+            angular.element('.fixed-content').duScrollTo(0, elem[0].offsetTop - 15);
+          });
+        }
+      }
+    };
   });

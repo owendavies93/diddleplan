@@ -13,7 +13,8 @@ angular
     'ui.router',
     'dndLists',
     'picardy.fontawesome',
-    'diddleplanService'
+    'diddleplanService',
+    'duScroll'
   ])
   .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     //

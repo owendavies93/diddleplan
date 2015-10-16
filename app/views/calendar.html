@@ -11,8 +11,8 @@
   <div class="fixed-wrapper">
     <div class="calendar fixed-content">
       <div class="tile" ng-repeat="day in calendar">
-        <div class="tile-inner">
-          <div class="tile-header">
+        <div class="tile-inner" ng-class="{today: day === today}" data-scroll-if="day === today">
+          <div class="tile-header" >
             <span class="day">{{day | date:'EEEE'}}</span>
             <span class="date">{{day | date:'MMM d'}}</span>
             <span class="add-task" ng-click="addTask('todo', day)"><i class="fa fa-plus"></i></span>

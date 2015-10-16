@@ -5,11 +5,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 // endbower
 
 /* Colours */
-$yellow:   #F1EFA5;
-$brown:    #554236;
-$green:    #60B99A;
-$offwhite: #FEFEFE;
-$grey:     #888888;
+$yellow:     #F1EFA5;
+$brown:      #554236;
+$green:      #60B99A;
+$offwhite:   #FEFEFE;
+$grey:       #888888;
+$light-grey: #F3F3F3;
 
 body {
   background: $yellow;
@@ -77,6 +78,7 @@ $cal-width: 67%;
 /* Main content */
 .calendar {
   padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .tile {
@@ -104,6 +106,10 @@ $cal-width: 67%;
 
 .tile-header > .add-task > i {
   vertical-align: middle;
+}
+
+.tile .today {
+  background-color: $light-grey;
 }
 
 .tile-item-name {
