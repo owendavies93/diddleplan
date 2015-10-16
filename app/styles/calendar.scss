@@ -12,13 +12,21 @@ $offwhite:   #FEFEFE;
 $grey:       #888888;
 $light-grey: #F3F3F3;
 
-body {
-  background: $yellow;
-}
-
 /* Structure */
 $navbar-height: 50px;
 $cal-width: 67%;
+$cal-scroll-width: 67.5%;
+
+body {
+  background: $yellow;
+  background: -moz-linear-gradient(left, $yellow 0%, $yellow $cal-scroll-width, $green $cal-scroll-width);
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,$yellow), color-stop($cal-scroll-width,$yellow), color-stop($cal-scroll-width,$green));
+  background: -webkit-linear-gradient(left, $yellow 0%,$yellow $cal-scroll-width,$green $cal-scroll-width);
+  background: -o-linear-gradient(left, $yellow 0%,$yellow $cal-scroll-width,$green $cal-scroll-width);
+  background: -ms-linear-gradient(left, $yellow 0%,$yellow $cal-scroll-width,$green $cal-scroll-width);
+  background: linear-gradient(to right, $yellow 0%,$yellow $cal-scroll-width,$green $cal-scroll-width);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$yellow', endColorstr='$green',GradientType=1 );
+}
 
 .navbar {
   border-radius: 0;
