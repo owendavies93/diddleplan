@@ -10,7 +10,9 @@
 <div class="wrapper">
   <div class="fixed-wrapper">
     <div class="calendar fixed-content"
-         infinite-scroll="loadMoreDays()"
+         infinite-scroll
+         infinite-scroll-up="loadPastDays()"
+         infinite-scroll-down="loadFutureDays()"
          infinite-scroll-distance="100"
          infinite-scroll-elem='.calendar'>
       <div class="tile" ng-repeat="day in calendar">

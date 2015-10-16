@@ -58,13 +58,20 @@ angular.module('diddleplanApp')
     $scope.calendar = [];
     $scope.today = Date.now();
     var oneDay = 86400000;
-    for (var i = -9; i < 12; ++i) {
+    for (var i = -6; i < 12; ++i) {
       $scope.calendar.push(Date.now() + oneDay * i);
     }
 
-    $scope.loadMoreDays = function() {
+    $scope.loadPastDays = function() {
+      var last = $scope.calendar[0];
+      for (var i = -1; i >= -9; --i) {
+        $scope.calendar.unshift(last + (oneDay * i));
+      }
+    };
+
+    $scope.loadFutureDays = function() {
       var last = $scope.calendar[$scope.calendar.length - 1];
-      for (var i = 1; i <=9; ++i) {
+      for (var i = 1; i <= 9; ++i) {
         $scope.calendar.push(last + (oneDay * i));
       }
     };
@@ -161,40 +168,53 @@ angular.module('diddleplanApp')
   .directive('infiniteScroll', function($rootScope, $timeout) {
     return {
       link: function(scope, elem, attrs) {
-        var checkWhenEnabled, handler, scrollDistance, scrollEnabled;
-
         var $child = angular.element(attrs.infiniteScrollElem);
+        var scrollDistance = 0;
 
-        scrollDistance = 0;
-        if (attrs.infiniteScrollDistance != null) {
+        if (attrs.infiniteScrollDistance !== null) {
           scope.$watch(attrs.infiniteScrollDistance, function(value) {
-            return scrollDistance = parseInt(value, 10);
+            scrollDistance = parseInt(value, 10);
           });
         }
-        scrollEnabled = true;
-        checkWhenEnabled = false;
-        handler = function() {
-          var elementBottom, remaining, shouldScroll, windowBottom;
 
-          windowBottom = $child[0].scrollHeight - ($child.scrollTop() + $child.height());
-          shouldScroll = windowBottom < scrollDistance;
+        var lastScrollTop = $child.scrollTop();
+        var handler = function() {
+          var currentScrollTop = $child.scrollTop();
+          var shouldScroll, windowBottom;
 
-          if (shouldScroll && scrollEnabled) {
-            if ($rootScope.$$phase) {
-              return scope.$eval(attrs.infiniteScroll);
-            } else {
-              return scope.$apply(attrs.infiniteScroll);
+          if (currentScrollTop > lastScrollTop) {
+            // Scroll down
+            windowBottom = $child[0].scrollHeight - ($child.scrollTop() + $child.height());
+            shouldScroll = windowBottom < scrollDistance;
+
+            if (shouldScroll) {
+              if ($rootScope.$$phase) {
+                scope.$eval(attrs.infiniteScrollDown);
+              } else {
+                scope.$apply(attrs.infiniteScrollDown);
+              }
             }
-          } else if (shouldScroll) {
-            return checkWhenEnabled = true;
+          } else {
+            // Scroll up
+            shouldScroll = $child.scrollTop() < scrollDistance;
+
+            // Don't call the scroll handler if we've just landed on the page
+            // TODO: possibly a bit hacky
+            if (shouldScroll && (lastScrollTop > 0 && currentScrollTop > 0)) {
+              if ($rootScope.$$phase) {
+                scope.$eval(attrs.infiniteScrollUp);
+              } else {
+                scope.$apply(attrs.infiniteScrollUp);
+              }
+              $child.scrollTop((scrollDistance * 2) + lastScrollTop);
+            }
           }
+          lastScrollTop = currentScrollTop;
+          return;
         };
 
         $child.on('scroll', handler);
 
-        scope.$on('$destroy', function() {
-          return $window.off('scroll', handler);
-        });
         return $timeout((function() {
           if (attrs.infiniteScrollImmediateCheck) {
             if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
