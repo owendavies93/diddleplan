@@ -61,6 +61,9 @@ angular.module('diddleplanApp')
     for (var i = -6; i < 12; ++i) {
       $scope.calendar.push(Date.now() + oneDay * i);
     }
+    var now = new Date();
+    $scope.lastYear = new Date(now.getFullYear() - 1, 0, 1).getTime();
+    $scope.nextYear = new Date(now.getFullYear() + 1, 0, 1).getTime();
 
     $scope.loadPastDays = function() {
       var last = $scope.calendar[0];
@@ -113,7 +116,6 @@ angular.module('diddleplanApp')
       var remainingMeals = $scope.meals.length;
       for (var i = 0; i < remainingMeals; ++i) {
         var items = $scope.calendar[i].items;
-        console.log(items);
 
         for (var j = 0; j < items; ++j) {
           if (items[j].taskType === 'meal') {
@@ -206,7 +208,7 @@ angular.module('diddleplanApp')
               } else {
                 scope.$apply(attrs.infiniteScrollUp);
               }
-              $child.scrollTop((scrollDistance * 2) + lastScrollTop);
+              $child.scrollTop((scrollDistance * 3) + lastScrollTop);
             }
           }
           lastScrollTop = currentScrollTop;

@@ -19,7 +19,8 @@
         <div class="tile-inner" data-scroll-if="day === today">
           <div class="tile-header" ng-class="{today: day === today}">
             <span class="day">{{day | date:'EEEE'}}</span>
-            <span class="date">{{day | date:'MMM d'}}</span>
+            <span class="date">{{day | date:'MMM d'}}</span> <!--
+            --><span ng-if="day >= nextYear || day <= lastYear" class="date">{{day | date:'yyyy'}}</span>
             <span class="add-task" ng-click="addTask('todo', day)"><i class="fa fa-plus"></i></span>
           </div>
 
