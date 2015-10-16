@@ -62,6 +62,13 @@ angular.module('diddleplanApp')
       $scope.calendar.push(Date.now() + oneDay * i);
     }
 
+    $scope.loadMoreDays = function() {
+      var last = $scope.calendar[$scope.calendar.length - 1];
+      for (var i = 1; i <=9; ++i) {
+        $scope.calendar.push(last + (oneDay * i));
+      }
+    };
+
     $scope.addTask = function(type, date) {
       // TODO: Need to pass in or work these out
       var newTaskData = {
@@ -149,3 +156,55 @@ angular.module('diddleplanApp')
       }
     };
   });
+
+angular.module('diddleplanApp')
+  .directive('infiniteScroll', function($rootScope, $timeout) {
+    return {
+      link: function(scope, elem, attrs) {
+        var checkWhenEnabled, handler, scrollDistance, scrollEnabled;
+
+        var $child = angular.element(attrs.infiniteScrollElem);
+
+        scrollDistance = 0;
+        if (attrs.infiniteScrollDistance != null) {
+          scope.$watch(attrs.infiniteScrollDistance, function(value) {
+            return scrollDistance = parseInt(value, 10);
+          });
+        }
+        scrollEnabled = true;
+        checkWhenEnabled = false;
+        handler = function() {
+          var elementBottom, remaining, shouldScroll, windowBottom;
+
+          windowBottom = $child[0].scrollHeight - ($child.scrollTop() + $child.height());
+          shouldScroll = windowBottom < scrollDistance;
+
+          if (shouldScroll && scrollEnabled) {
+            if ($rootScope.$$phase) {
+              return scope.$eval(attrs.infiniteScroll);
+            } else {
+              return scope.$apply(attrs.infiniteScroll);
+            }
+          } else if (shouldScroll) {
+            return checkWhenEnabled = true;
+          }
+        };
+
+        $child.on('scroll', handler);
+
+        scope.$on('$destroy', function() {
+          return $window.off('scroll', handler);
+        });
+        return $timeout((function() {
+          if (attrs.infiniteScrollImmediateCheck) {
+            if (scope.$eval(attrs.infiniteScrollImmediateCheck)) {
+              return handler();
+            }
+          } else {
+            return handler();
+          }
+        }), 0);
+      }
+    };
+  }
+);
