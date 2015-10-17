@@ -3,6 +3,7 @@
 /.tmp
 /.sass-cache
 /app/bower_components
+/app/config/strava_config.json
 
 Vagrantfile
 .vagrant

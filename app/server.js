@@ -7,6 +7,7 @@ var api        = require('./routes/api');
 var web        = require('./routes/web');
 var fixtures   = require('sequelize-fixtures');
 var bodyParser = require('body-parser');
+var strava     = require('strava-v3')(__dirname + '/config/strava_config.json');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
