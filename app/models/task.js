@@ -8,7 +8,9 @@ module.exports = function(sequelize, DataTypes) {
     date:         { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
     time:         { type: DataTypes.TEXT, allowNull: true, defaultValue: null },
     moveable:     { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: 1 },
-    autoMoveable: { type: DataTypes.BOOLEAN, allowNull: true, defaultValue: null }
+    autoMoveable: { type: DataTypes.BOOLEAN, allowNull: true, defaultValue: null },
+    description:  { type: DataTypes.TEXT, allowNull: false, defaultValue: '' },
+    stravaId:     { type: DataTypes.INTEGER, allowNull: true, defaultValue: null }
   }, {
     classMethods: {
       associate: function(models) {

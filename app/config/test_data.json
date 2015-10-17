@@ -2,19 +2,22 @@
   {
     "model": "User",
     "data": {
-      "username": "default"
+      "username": "default",
+      "stravaID": null
     }
   },
   {
     "model": "User",
     "data": {
-      "username": "owen"
+      "username": "owen",
+      "stravaID": 3039803
     }
   },
   {
     "model": "User",
     "data": {
-      "username": "anna"
+      "username": "anna",
+      "stravaID": 5066010
     }
   },
 
@@ -27,7 +30,9 @@
       "time": null,
       "moveable": true,
       "autoMoveable": null,
-      "UserId": 2
+      "UserId": 2,
+      "description": "Needs doing soon!",
+      "stravaID": null
     }
   },
   {
@@ -39,7 +44,9 @@
       "time": null,
       "moveable": true,
       "autoMoveable": null,
-      "UserId": 3
+      "UserId": 3,
+      "description": "",
+      "stravaID": null
     }
   },
   {
@@ -51,7 +58,9 @@
       "time": null,
       "moveable": true,
       "autoMoveable": null,
-      "UserId": 1
+      "UserId": 1,
+      "description": "",
+      "stravaID": null
     }
   },
   {
@@ -63,7 +72,9 @@
       "time": null,
       "moveable": true,
       "autoMoveable": null,
-      "UserId": 3
+      "UserId": 3,
+      "description": "",
+      "stravaID": null
     }
   },
   {
@@ -75,7 +86,9 @@
       "time": null,
       "moveable": true,
       "autoMoveable": null,
-      "UserId": 1
+      "UserId": 1,
+      "description": "",
+      "stravaID": null
     }
   },
   {
@@ -87,7 +100,9 @@
       "time": null,
       "moveable": true,
       "autoMoveable": null,
-      "UserId": 1
+      "UserId": 1,
+      "description": "",
+      "stravaID": null
     }
   }
 ]
