@@ -35,7 +35,7 @@
     "sequelize": "^3.10.0",
     "sequelize-cli": "^1.9.1",
     "sequelize-fixtures": "^0.4.7",
-    "strava-v3": "^1.8.1",
+    "strava-v3": "https://github.com/sirgraystar/node-strava-v3.git#618d88e92dc2668a80e979a39d27dcb254788e65",
     "time-grunt": "^1.0.0"
   },
   "engines": {
