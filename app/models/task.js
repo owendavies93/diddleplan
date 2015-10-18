@@ -7,10 +7,10 @@ module.exports = function(sequelize, DataTypes) {
     taskType:     { type: DataTypes.ENUM('todo', 'exercise', 'meal', 'meeting', 'other'), allowNull: false, defaultValue: 'other' },
     date:         { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
     time:         { type: DataTypes.TEXT, allowNull: true, defaultValue: null },
-    moveable:     { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: 1 },
+    moveable:     { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true },
     autoMoveable: { type: DataTypes.BOOLEAN, allowNull: true, defaultValue: null },
     description:  { type: DataTypes.TEXT, allowNull: false, defaultValue: '' },
-    stravaId:     { type: DataTypes.INTEGER, allowNull: true, defaultValue: null }
+    stravaID:     { type: DataTypes.INTEGER, allowNull: true, defaultValue: null }
   }, {
     classMethods: {
       associate: function(models) {

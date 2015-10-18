@@ -3,21 +3,27 @@
     "model": "User",
     "data": {
       "username": "default",
-      "stravaID": null
+      "stravaID": null,
+      "hash": "test",
+      "salt": "test"
     }
   },
   {
     "model": "User",
     "data": {
       "username": "owen",
-      "stravaID": 3039803
+      "stravaID": 3039803,
+      "hash": "test",
+      "salt": "test"
     }
   },
   {
     "model": "User",
     "data": {
       "username": "anna",
-      "stravaID": 5066010
+      "stravaID": 5066010,
+      "hash": "test",
+      "salt": "test"
     }
   },
 
