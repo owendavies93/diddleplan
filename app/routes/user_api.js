@@ -6,10 +6,8 @@ var router   = express.Router();
 var passport = require('passport');
 
 router.post('/users/register', function(req, res, next) {
-  console.log(JSON.stringify(req.body));
   models.User.register(req.body['username'], req.body['password'], function (err, registeredUser) {
     if (err) {
-      console.log(err.message);
       return res.json({ error: err.message });
     }
 
