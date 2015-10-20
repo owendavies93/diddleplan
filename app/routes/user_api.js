@@ -47,7 +47,7 @@ router.post('/users/login', function (req, res, next) {
         if (err) {
           res.status(500).send('Something went wrong');
         } else {
-          res.status(200).json(user);
+          res.json({ state: req.user });
         }
       });
     }
