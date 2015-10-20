@@ -7,6 +7,7 @@ var fixtures     = require('sequelize-fixtures');
 var passport      = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
+var session      = require('cookie-session');
 var bodyParser   = require('body-parser');
 var cookieParser = require('cookie-parser');
 var models       = require('./models');
@@ -15,13 +16,12 @@ var exercise_api = require('./routes/exercise_api');
 var web          = require('./routes/web');
 var user_api     = require('./routes/user_api');
 
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-app.use(require('express-session')({
-  secret: 'foobar',
-  resave: false,
-  saveUninitialized: false
+app.use(session({
+  secret: 'foobar'
 }));
 app.use(passport.initialize());
 app.use(passport.session());
