@@ -10,6 +10,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var session      = require('cookie-session');
 var bodyParser   = require('body-parser');
 var cookieParser = require('cookie-parser');
+
 var models       = require('./models');
 var task_api     = require('./routes/task_api');
 var exercise_api = require('./routes/exercise_api');
@@ -35,11 +36,7 @@ passport.deserializeUser(models.User.deserializeUser());
 app.use('/api', task_api);
 app.use('/api', exercise_api);
 app.use('/api', user_api);
-app.use('/diddleplan', web);
-
-app.set('views', __dirname + '/views');
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
+app.use('/', web);
 
 models.sequelize.sync({ force: true }).then(function () {
   fixtures.loadFile(__dirname + '/config/test_data.json', models).then(function(){

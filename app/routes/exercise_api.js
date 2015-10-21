@@ -9,9 +9,9 @@ var strava   = require('strava-v3')(__dirname + '/../config/strava_config.json')
 function isAuthed(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
+  } else {
+    res.send(401);
   }
-
-  res.redirect('/api/users/login');
 }
 
 router.get('/exercises/auth', isAuthed, function(req, res) {

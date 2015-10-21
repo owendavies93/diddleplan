@@ -17,10 +17,7 @@ angular
     'duScroll'
   ])
   .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
-    //
-    // For any unmatched url, redirect to /
-    $urlRouterProvider.otherwise("/diddleplan");
-    //
+
     // Now set up the states
     $stateProvider
       .state("calendar", {
@@ -34,7 +31,16 @@ angular
             }
           ]
         }
+      })
+      .state("login", {
+        url: "/login",
+        templateUrl: "/views/login.html",
+        controller: "AuthCtrl"
       });
+
+    // For any unmatched url, redirect to the login page (which redirects to
+    // the calendar if it's authed)
+    $urlRouterProvider.otherwise("/diddleplan");
 
     // use the HTML5 History API
     $locationProvider.html5Mode(true);

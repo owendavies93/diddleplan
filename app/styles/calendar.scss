@@ -89,6 +89,10 @@ body {
   padding-bottom: 15px;
 }
 
+.login-form {
+  padding-top: calc(#{$navbar-height} + 15px);
+}
+
 .tile {
   width: 33.33%;
   height: 300px;

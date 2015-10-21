@@ -30,6 +30,22 @@ angular.module('diddleplanService', [])
     };
 
     return taskDataFunctions;
+  })
+
+  .factory('AuthService', function ($http) {
+    var urlBase = '/api';
+    var authFunctions = {};
+
+    authFunctions.isAuthed = function () {
+      return $http.get(urlBase + '/users/authed');
+    };
+
+    authFunctions.login = function (username, password) {
+      return $http.post(urlBase + '/users/login',
+        { username: username, password : password });
+    };
+
+    return authFunctions;
   });
 
 /**
@@ -149,9 +165,22 @@ angular.module('diddleplanApp')
       return value && value.date === date;
     };
 
-  });
+  })
 
-angular.module('diddleplanApp')
+  .controller('AuthCtrl', function ($scope, $location, AuthService) {
+    $scope.login = function (username, password) {
+      if (username !== undefined && password !== undefined) {
+        AuthService.login(username, password).success(function() {
+          AuthService.isAuthed = true;
+          $location.path("/");
+        }).error(function(status, data) {
+          console.log(status);
+          console.log(data);
+        });
+      }
+    };
+  })
+
   .directive('scrollIf', function($timeout) {
     return {
       restrict: 'A',
@@ -164,9 +193,8 @@ angular.module('diddleplanApp')
         }
       }
     };
-  });
+  })
 
-angular.module('diddleplanApp')
   .directive('infiniteScroll', function($rootScope, $timeout) {
     return {
       link: function(scope, elem, attrs) {

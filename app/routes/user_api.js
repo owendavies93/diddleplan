@@ -32,10 +32,6 @@ router.post('/users/register', function(req, res, next) {
   });
 });
 
-router.get('/users/login', function(req, res) {
-  res.render("login.html");
-});
-
 router.post('/users/login', function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     if (err) {
@@ -47,11 +43,15 @@ router.post('/users/login', function (req, res, next) {
         if (err) {
           res.status(500).send('Something went wrong');
         } else {
-          res.json({ state: req.user });
+          res.status(200).send();
         }
       });
     }
   })(req, res, next);
+});
+
+router.get('/users/authed', function (req, res) {
+  res.send(req.isAuthenticated() ? req.user : '0');
 });
 
 module.exports = router;

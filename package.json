@@ -3,6 +3,7 @@
   "private": true,
   "devDependencies": {
     "body-parser": "^1.14.1",
+    "connect-modrewrite": "^0.8.2",
     "cookie-parser": "^1.4.0",
     "ejs": "^2.3.4",
     "express": "^4.13.3",
