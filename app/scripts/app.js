@@ -16,7 +16,27 @@ angular
     'diddleplanService',
     'duScroll'
   ])
-  .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+
+    // For any unmatched url, redirect to the login page (which redirects to
+    // the calendar if it's authed)
+    $urlRouterProvider.otherwise("/diddleplan");
+
+    // use the HTML5 History API
+    $locationProvider.html5Mode(true);
+
+    $httpProvider.interceptors.push(function ($q, $location, $timeout) {
+      return {
+        responseError: function(response) {
+          if (response.status === 401 && $location.path() !== '/login') {
+            $timeout(function() {
+              $location.path('/login');
+            });
+          }
+          return $q.reject(response);
+        }
+      };
+    });
 
     // Now set up the states
     $stateProvider
@@ -29,7 +49,10 @@ angular
             function(tasks) {
               return tasks.getTasks();
             }
-          ]
+          ],
+          auth: function(AuthService) {
+            return AuthService.isAuthed();
+          }
         }
       })
       .state("login", {
@@ -37,11 +60,4 @@ angular
         templateUrl: "/views/login.html",
         controller: "AuthCtrl"
       });
-
-    // For any unmatched url, redirect to the login page (which redirects to
-    // the calendar if it's authed)
-    $urlRouterProvider.otherwise("/diddleplan");
-
-    // use the HTML5 History API
-    $locationProvider.html5Mode(true);
   });

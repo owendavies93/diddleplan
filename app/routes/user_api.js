@@ -51,7 +51,11 @@ router.post('/users/login', function (req, res, next) {
 });
 
 router.get('/users/authed', function (req, res) {
-  res.send(req.isAuthenticated() ? req.user : '0');
+  if (req.isAuthenticated()) {
+    res.status(200).send();
+  } else {
+    res.status(401).end();
+  }
 });
 
 module.exports = router;
