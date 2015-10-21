@@ -46,6 +46,21 @@ angular.module('diddleplanService', [])
     };
 
     return authFunctions;
+  })
+
+  .factory('ExerciseService', function ($http) {
+    var urlBase = '/api';
+    var exerciseFunctions = {};
+
+    exerciseFunctions.auth = function () {
+      return $http.get(urlBase + '/exercises/auth');
+    };
+
+    exerciseFunctions.getExercises = function () {
+      return $http.get(urlBase + '/exercises/');
+    };
+
+    return exerciseFunctions;
   });
 
 /**
@@ -56,7 +71,7 @@ angular.module('diddleplanService', [])
  * Controller of the diddleplanApp
  */
 angular.module('diddleplanApp')
-  .controller('CalendarCtrl', function ($scope, tasks, TaskData) {
+  .controller('CalendarCtrl', function ($scope, tasks, TaskData, ExerciseService) {
 
     $scope.tasks = tasks.data;
     $scope.types = ['todo', 'exercise', 'meal', 'shopping'];
@@ -143,7 +158,13 @@ angular.module('diddleplanApp')
       $scope.calendar[remainingMeals].items.push(shoppingItem);
     };
 
-    // $scope.calculateShoppingTrip();
+    $scope.getNewExercises = function() {
+      ExerciseService.getExercises().success(function() {
+        TaskData.getTasks().success(function(tasks) {
+          $scope.tasks = tasks;
+        });
+      });
+    };
 
     $scope.isTodo = function(value) {
       return (value.taskType === 'todo') && !value.date;
