@@ -91,6 +91,8 @@ body {
 
 .login-form {
   padding-top: calc(#{$navbar-height} + 15px);
+  width: 500px;
+  margin: 0 auto;
 }
 
 .tile {
