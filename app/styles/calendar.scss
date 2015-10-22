@@ -128,13 +128,50 @@ body {
 
 .tile-item-name {
   display: inline-block;
-  margin-right: 5px;
-  width: 75%;
+  width: 60%;
 }
 
 .tile-item-time {
   display: inline-block;
+  margin-right: 1px;
   width: 20%;
+}
+
+.btn-default {
+  border-radius: 0;
+}
+
+.btn--recur {
+  display: inline-block;
+
+  i {
+    font-size: 0.8em;
+    vertical-align: text-top;
+  }
+}
+
+.popover {
+  box-shadow: none;
+  border-radius: 0;
+
+  .popover-content {
+    width: 400px;
+    padding: 15px;
+  }
+
+  .popover-title {
+    background-color: $light-grey;
+    color: $brown;
+    border-radius: 0;
+  }
+}
+
+.form--popover .form-group {
+  margin-left: 0;
+
+  .form-control {
+    width: inherit;
+  }
 }
 
 .date {

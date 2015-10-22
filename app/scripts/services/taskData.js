@@ -18,6 +18,13 @@ angular.module('diddleplanService', [])
       return $http.put(urlBase + '/tasks/' + task.taskID, task);
     };
 
+    taskDataFunctions.recurTask = function(task, period, range) {
+      return $http.post(urlBase + '/tasks/recur/id', {
+        period: period,
+        range: range
+      });
+    };
+
     taskDataFunctions.formatTime = function(time) {
       var result, m;
       var re = /^\s*([01]?\d|2[0-3]):?([0-5]\d)?\s*$/;

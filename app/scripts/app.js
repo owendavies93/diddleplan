@@ -14,7 +14,8 @@ angular
     'dndLists',
     'picardy.fontawesome',
     'diddleplanService',
-    'duScroll'
+    'duScroll',
+    'mgcrea.ngStrap'
   ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 

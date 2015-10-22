@@ -29,6 +29,8 @@ module.exports = function(config) {
       'app/bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js',
       'app/bower_components/angular-fontawesome/dist/angular-fontawesome.js',
       'app/bower_components/angular-scroll/angular-scroll.js',
+      'app/bower_components/angular-strap/dist/angular-strap.js',
+      'app/bower_components/angular-strap/dist/angular-strap.tpl.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

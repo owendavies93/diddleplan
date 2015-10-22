@@ -104,6 +104,11 @@ angular.module('diddleplanApp')
     };
     $scope.getNewExercises();
 
+    $scope.addRecurrence = function(task) {
+      // TODO
+      console.log(task);
+    };
+
     $scope.isTodo = function(value) {
       return (value.taskType === 'todo') && !value.date;
     };
@@ -123,5 +128,4 @@ angular.module('diddleplanApp')
     $scope.hasDate = function(value, date) {
       return value && value.date === date;
     };
-
   });

@@ -49,6 +49,16 @@
                   ng-change="updateTask(item)"
                   class="background-{{item.taskType}} form-control input-sm tile-item-time"
                   placeholder="Time">
+
+                <button
+                  bs-popover
+                  class="btn btn-default btn--recur input-sm"
+                  title="Add Recurrence"
+                  data-auto-close="1"
+                  placement="bottom"
+                  data-template-url="views/popover.html">
+                    <i class="fa fa-repeat"></i>
+                </button>
               </div>
             </li>
 
