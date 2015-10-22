@@ -2,13 +2,29 @@
   {
     "model": "User",
     "data": {
-      "username": "owen"
+      "username": "default",
+      "stravaID": null,
+      "hash": "test",
+      "salt": "test"
     }
   },
   {
     "model": "User",
     "data": {
-      "username": "anna"
+      "username": "owen",
+      "stravaID": 3039803,
+      "hash": "ae745fe45c749e8edc28497f8998fed4d37c05aeb720bdd9fe63de595434c9bebeeba074aa191b44036426731d181e9187a95c80f59b53a9eb60fb952914ee9b2dc2399f90b1ccb3b127504dd1b286a7f7b2310f0340eab2dc5bb0af812c7fd8c439468192f19e1b6d91f6ddece0ccf3d367768fb192941967bda49ebb8cb44b11947911cda36602645c3dff6787f4f3b35a3f24241372f57176f1c3ab625206470d5238a23dbe4b18eb24e837733c07f32087b2f1a11a67f3b0fa8321d7eb30877383022c44d10dc9b41cf5ddcce211bbf2b2a9a6119089d2bdb77eb4eceec4ba32c1c685d15cabb9afaedc1c64e107f23d0ed27924ea71dda1fedf6fdc96db8d88f0b7afcbf5a35f6c5d632b97f4f71d5f89e5d925da9de5b6b6b9c2e6066ecf01f631677b44c7438bdb218c5c911aae0fdc8f48c16ae506006684efb830a2ad916a3a427b5e532f8f341cee6e6eaf2761ab6e9b59c93ae4895a0a6edafd691b01eabf2ed444c1dbe5bf5c6c944114df30320246e214445cd7ee15338d0a825b8b39c4943381e2ace3fddb7e3513587908900e8bf7c121ed0fe3c4e5065d09c4f071d8ac1ac801f0b2df2033ddd3201d84ec0cdec695a9a79be30770ce4447f1931552ec5f0600ebab759172aaa7c563d0ecfe0889741da1a8fb82c278410dbb9ec73f3b7ac0f06273d4b9eae6b379caeb5b307ef75b56a6bd2994781ddb65",
+      "salt": "ed73a775486e61890f8d1d0dd3a0f2d5a6dfe5fd74bada6a9703bd2f0f49269f",
+      "stravaAuthToken": "b5e64ba2c7c0d092a028186d4f13d7d038fa21d3"
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "username": "anna",
+      "stravaID": 5066010,
+      "hash": "test",
+      "salt": "test"
     }
   },
 
@@ -16,60 +32,84 @@
     "model": "Task",
     "data": {
       "name": "Clean the Bathrooms",
-      "task_type": "todo",
+      "taskType": "todo",
       "date": null,
+      "time": null,
       "moveable": true,
-      "auto_moveable": null
+      "autoMoveable": null,
+      "UserId": 2,
+      "description": "Needs doing soon!",
+      "stravaID": null
     }
   },
   {
     "model": "Task",
     "data": {
       "name": "Mow the Lawn",
-      "task_type": "todo",
+      "taskType": "todo",
       "date": null,
+      "time": null,
       "moveable": true,
-      "auto_moveable": null
+      "autoMoveable": null,
+      "UserId": 3,
+      "description": "",
+      "stravaID": null
     }
   },
   {
     "model": "Task",
     "data": {
       "name": "Washing",
-      "task_type": "todo",
+      "taskType": "todo",
       "date": null,
+      "time": null,
       "moveable": true,
-      "auto_moveable": null
+      "autoMoveable": null,
+      "UserId": 1,
+      "description": "",
+      "stravaID": null
     }
   },
   {
     "model": "Task",
     "data": {
       "name": "Run",
-      "task_type": "exercise",
+      "taskType": "exercise",
       "date": null,
+      "time": null,
       "moveable": true,
-      "auto_moveable": null
+      "autoMoveable": null,
+      "UserId": 3,
+      "description": "",
+      "stravaID": null
     }
   },
   {
     "model": "Task",
     "data": {
       "name": "Beef Stir Fry",
-      "task_type": "meal",
+      "taskType": "meal",
       "date": null,
+      "time": null,
       "moveable": true,
-      "auto_moveable": null
+      "autoMoveable": null,
+      "UserId": 1,
+      "description": "",
+      "stravaID": null
     }
   },
   {
     "model": "Task",
     "data": {
       "name": "Curry",
-      "task_type": "meal",
+      "taskType": "meal",
       "date": null,
+      "time": null,
       "moveable": true,
-      "auto_moveable": null
+      "autoMoveable": null,
+      "UserId": 1,
+      "description": "",
+      "stravaID": null
     }
   }
 ]

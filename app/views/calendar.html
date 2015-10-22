@@ -1,20 +1,32 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <a class="navbar-brand" href="#">DiddlePlan</a>
     </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-click="getNewExercises()">Get Exercises</li>
+      </ul>
+    </div>
   </div><!-- /.container-fluid -->
 </nav>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-8 calendar">
+<div class="wrapper">
+  <div class="fixed-wrapper">
+    <div class="calendar fixed-content"
+         infinite-scroll
+         infinite-scroll-up="loadPastDays()"
+         infinite-scroll-down="loadFutureDays()"
+         infinite-scroll-distance="100"
+         infinite-scroll-elem='.calendar'>
       <div class="tile" ng-repeat="day in calendar">
-        <div class="tile-inner">
-          <div class="tile-header">
+        <div class="tile-inner" data-scroll-if="day === today">
+          <div class="tile-header" ng-class="{today: day === today}">
             <span class="day">{{day | date:'EEEE'}}</span>
-            <span class="date">{{day | date:'MMM d'}}</span>
+            <span class="date">{{day | date:'MMM d'}}</span> <!--
+            --><span ng-if="day >= nextYear || day <= lastYear" class="date">{{day | date:'yyyy'}}</span>
+            <span class="add-task" ng-click="addTask('todo', day)"><i class="fa fa-plus"></i></span>
           </div>
 
           <ul dnd-list="tasks"
@@ -23,34 +35,45 @@
             ng-attr-id="{{day}}">
 
             <li ng-repeat="item in tasks | filterDate:day"
-                dnd-draggable="item"
-                dnd-type="item.type"
-                dnd-disable-if="item.type == 'unknown'"
-                dnd-moved="removeTask(item)"
-                dnd-effect-allowed="move"
-                class="background-{{item.type}}"
-                >
-                <div class="handle"><i class="fa" ng-class="[{'fa-cutlery': item.type === 'meal'}, {'fa-heartbeat': item.type === 'exercise'}, {'fa-sticky-note': item.type === 'todo'}, {'fa-shopping-cart': item.type === 'shopping'}]"></i></div>
-                <div class="name" dnd-nodrag>
-                    <input type="text" ng-model="item.name" class="background-{{item.type}} form-control input-sm">
-                </div>
+              dnd-draggable="item"
+              dnd-type="item.taskType"
+              dnd-disable-if="item.taskType == 'other'"
+              dnd-moved="removeTask(item)"
+              dnd-effect-allowed="move"
+              class="background-{{item.taskType}}">
+              <div class="handle"><i class="fa" ng-class="[{'fa-cutlery': item.taskType === 'meal'}, {'fa-heartbeat': item.taskType === 'exercise'}, {'fa-sticky-note': item.taskType === 'todo'}, {'fa-shopping-cart': item.taskType === 'shopping'}]"></i></div>
+              <div class="name" dnd-nodrag>
+                <input type="text"
+                  ng-model="item.name"
+                  ng-change="updateTask(item)"
+                  class="background-{{item.taskType}} form-control input-sm tile-item-name"
+                  placeholder="New Task">
+
+                <input type="text"
+                  ng-model="item.time"
+                  ng-change="updateTask(item)"
+                  class="background-{{item.taskType}} form-control input-sm tile-item-time"
+                  placeholder="Time">
+              </div>
             </li>
 
             <li class="dndPlaceholder">
-                Drop things here
+              Drop things here
             </li>
 
           </ul>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="col-md-4 sidebar">
+  <div class="sidebar-wrapper">
+    <div class="sidebar">
       <div class="tile">
         <div class="tile-inner">
           <div class="tile-header">
             <span>Todo</span>
-            <span class="add-item" ng-click="addItem('todo', 'todos')"><i class="fa fa-plus"></i></span>
+            <span class="add-task" ng-click="addTask('todo', null)"><i class="fa fa-plus"></i></span>
           </div>
 
           <ul dnd-list="tasks"
@@ -58,21 +81,24 @@
             dnd-disable-if="false">
 
             <li ng-repeat="todo in tasks | filter:isTodo"
-                dnd-draggable="todo"
-                dnd-type="todo.type"
-                dnd-disable-if="todo.type == 'unknown'"
-                dnd-moved="removeTask(todo)"
-                dnd-effect-allowed="move"
-                class="background-{{todo.type}}"
-                >
-                <div class="handle"><i class="fa fa-sticky-note"></i></div>
-                <div class="name" dnd-nodrag>
-                    <input type="text" ng-model="todo.name" class="background-{{todo.type}} form-control input-sm">
-                </div>
+              dnd-draggable="todo"
+              dnd-type="todo.taskType"
+              dnd-disable-if="todo.taskType == 'unknown'"
+              dnd-moved="removeTask(todo)"
+              dnd-effect-allowed="move"
+              class="background-{{todo.taskType}}">
+              <div class="handle"><i class="fa fa-sticky-note"></i></div>
+              <div class="name" dnd-nodrag>
+                <input type="text"
+                  ng-model="todo.name"
+                  ng-change="updateTask(todo)"
+                  class="background-{{todo.taskType}} form-control input-sm"
+                  placeholder="New Task">
+              </div>
             </li>
 
             <li class="dndPlaceholder">
-                Drop todos here
+              Drop todos here
             </li>
 
           </ul>
@@ -83,7 +109,7 @@
         <div class="tile-inner">
           <div class="tile-header">
             <span>Exercise</span>
-            <span class="add-item" ng-click="addItem('exercise', 'exercises')"><i class="fa fa-plus"></i></span>
+            <span class="add-task" ng-click="addTask('exercise', null)"><i class="fa fa-plus"></i></span>
           </div>
 
           <ul dnd-list="tasks"
@@ -91,21 +117,24 @@
             dnd-disable-if="false">
 
             <li ng-repeat="exercise in tasks | filter:isExercise"
-                dnd-draggable="exercise"
-                dnd-type="exercise.type"
-                dnd-disable-if="exercise.type == 'unknown'"
-                dnd-moved="removeTask(exercise)"
-                dnd-effect-allowed="move"
-                class="background-{{exercise.type}}"
-                >
-                <div class="handle"><i class="fa fa-heartbeat"></i></i></div>
-                <div class="name" dnd-nodrag>
-                    <input type="text" ng-model="exercise.name" class="background-{{exercise.type}} form-control input-sm">
-                </div>
+              dnd-draggable="exercise"
+              dnd-type="exercise.taskType"
+              dnd-disable-if="exercise.taskType == 'unknown'"
+              dnd-moved="removeTask(exercise)"
+              dnd-effect-allowed="move"
+              class="background-{{exercise.taskType}}">
+              <div class="handle"><i class="fa fa-heartbeat"></i></i></div>
+              <div class="name" dnd-nodrag>
+                <input type="text"
+                  ng-model="exercise.name"
+                  ng-change="updateTask(exercise)"
+                  class="background-{{exercise.taskType}} form-control input-sm"
+                  placeholder="New Task">
+              </div>
             </li>
 
             <li class="dndPlaceholder">
-                Drop exercises here
+              Drop exercises here
             </li>
 
           </ul>
@@ -116,7 +145,7 @@
         <div class="tile-inner">
           <div class="tile-header">
             <span>Meals</span>
-            <span class="add-item" ng-click="addItem('meal', 'meals')"><i class="fa fa-plus"></i></span>
+            <span class="add-task" ng-click="addTask('meal', null)"><i class="fa fa-plus"></i></span>
           </div>
 
           <ul dnd-list="tasks"
@@ -124,21 +153,25 @@
             dnd-disable-if="false">
 
             <li ng-repeat="meal in tasks | filter:isMeal"
-                dnd-draggable="meal"
-                dnd-type="meal.type"
-                dnd-disable-if="meal.type == 'unknown'"
-                dnd-moved="removeTask(meal)"
-                dnd-effect-allowed="move"
-                class="background-{{meal.type}}"
-                >
-                <div class="handle"><i class="fa fa-cutlery"></i></div>
-                <div class="name" dnd-nodrag>
-                    <input type="text" ng-model="meal.name" class="background-{{meal.type}} form-control input-sm">
-                </div>
+              dnd-draggable="meal"
+              dnd-type="meal.taskType"
+              dnd-disable-if="meal.taskType == 'unknown'"
+              dnd-moved="removeTask(meal)"
+              dnd-effect-allowed="move"
+              class="background-{{meal.taskType}}"
+              >
+              <div class="handle"><i class="fa fa-cutlery"></i></div>
+              <div class="name" dnd-nodrag>
+                <input type="text"
+                  ng-model="meal.name"
+                  ng-change="updateTask(meal)"
+                  class="background-{{meal.taskType}} form-control input-sm"
+                  placeholder="New Task">
+              </div>
             </li>
 
             <li class="dndPlaceholder">
-                Drop meals here
+              Drop meals here
             </li>
 
           </ul>
@@ -149,7 +182,7 @@
         <div class="tile-inner">
           <div class="tile-header">
             <span>Shopping List</span>
-            <span class="add-item" ng-click="addItem('meal', 'shoppingList')"><i class="fa fa-plus"></i></span>
+            <span class="add-task" ng-click="addTask('meal', null)"><i class="fa fa-plus"></i></span>
           </div>
 
           <ul dnd-list="tasks"
@@ -157,21 +190,23 @@
             dnd-disable-if="false">
 
             <li ng-repeat="meal in tasks | filter:isShopping"
-                dnd-draggable="meal"
-                dnd-type="meal.type"
-                dnd-disable-if="tasks.type == 'unknown'"
-                dnd-moved="removeTask(meal)"
-                dnd-effect-allowed="move"
-                class="background-{{meal.type}}"
-                >
-                <div class="handle"><i class="fa fa-shopping-cart"></i></div>
-                <div class="name" dnd-nodrag>
-                    <input type="text" ng-model="meal.name" class="background-{{meal.type}} form-control input-sm">
-                </div>
+              dnd-draggable="meal"
+              dnd-type="meal.taskType"
+              dnd-disable-if="tasks.taskType == 'unknown'"
+              dnd-moved="removeTask(meal)"
+              dnd-effect-allowed="move"
+              class="background-{{meal.taskType}}">
+              <div class="handle"><i class="fa fa-shopping-cart"></i></div>
+              <div class="name" dnd-nodrag>
+                <input type="text"
+                  ng-model="meal.name"
+                  class="background-{{meal.taskType}} form-control input-sm"
+                  placeholder="New Task">
+              </div>
             </li>
 
             <li class="dndPlaceholder">
-                Drop shopping here
+              Drop shopping here
             </li>
 
           </ul>

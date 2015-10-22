@@ -5,8 +5,9 @@
     "angular": "^1.3.0",
     "bootstrap-sass-official": "^3.2.0",
     "angular-ui-router": "~0.2.15",
-    "angular-drag-and-drop-lists": "https://github.com/anna2130/angular-drag-and-drop-lists.git#ec5ba9d6092717f5441457162dc5361ab87223da",
-    "angular-fontawesome": "~1.0.0"
+    "angular-drag-and-drop-lists": "https://github.com/anna2130/angular-drag-and-drop-lists.git#fa87314fc4bb3c9e47db1f8f9aec17f7e5a9cd44",
+    "angular-fontawesome": "~1.0.0",
+    "angular-scroll": "~0.7.3"
   },
   "devDependencies": {
     "angular-mocks": "^1.3.0"

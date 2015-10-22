@@ -4,16 +4,36 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "font-awesome/scss/font-awesome.scss";
 // endbower
 
+/* Colours */
+$yellow:     #F1EFA5;
+$brown:      #554236;
+$green:      #60B99A;
+$offwhite:   #FEFEFE;
+$grey:       #888888;
+$light-grey: #F3F3F3;
+
+/* Structure */
+$navbar-height: 50px;
+$cal-width: 67%;
+$cal-scroll-width: 67.5%;
+
 body {
-  background: #F1EFA5;
+  background: $yellow;
+  background: -moz-linear-gradient(left, $yellow 0%, $yellow $cal-scroll-width, $green $cal-scroll-width);
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,$yellow), color-stop($cal-scroll-width,$yellow), color-stop($cal-scroll-width,$green));
+  background: -webkit-linear-gradient(left, $yellow 0%,$yellow $cal-scroll-width,$green $cal-scroll-width);
+  background: -o-linear-gradient(left, $yellow 0%,$yellow $cal-scroll-width,$green $cal-scroll-width);
+  background: -ms-linear-gradient(left, $yellow 0%,$yellow $cal-scroll-width,$green $cal-scroll-width);
+  background: linear-gradient(to right, $yellow 0%,$yellow $cal-scroll-width,$green $cal-scroll-width);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$yellow', endColorstr='$green',GradientType=1 );
 }
 
-/* Navbar */
 .navbar {
   border-radius: 0;
   margin-bottom: 0;
-  background: #554236;
+  background: $brown;
   border: none;
+  min-height: $navbar-height;
 }
 
 .navbar-header {
@@ -21,12 +41,58 @@ body {
 }
 
 .navbar-header .navbar-brand {
-  color: #fefefe;
+  color: $offwhite;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: table;
+}
+
+.fixed-wrapper, .fixed-content {
+  width: $cal-width;
+  top: $navbar-height;
+  left: 15px;
+  bottom: 0;
+  padding-right: 15px;
+}
+
+.fixed-wrapper {
+  position: absolute;
+}
+
+.fixed-content {
+  position: fixed;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.sidebar-wrapper {
+  height: 100%;
+  width: 100% - $cal-width;
+  display: table-cell;
+  vertical-align: top;
+  margin-left: $cal-width;
+  padding-left: 15px;
+  padding-top: $navbar-height;
+}
+
+.sidebar {
+  // height: 100%;
 }
 
 /* Main content */
 .calendar {
   padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.login-form {
+  padding-top: calc(#{$navbar-height} + 15px);
+  width: 500px;
+  margin: 0 auto;
 }
 
 .tile {
@@ -38,36 +104,51 @@ body {
 
 .tile-inner {
   height: 100%;
-  background: #fefefe;
+  background: $offwhite;
 }
 
 .tile-header {
-  /*border-left: 8px solid #F77825;*/
-  border-bottom: 5px solid #F1EFA5;
+  border-bottom: 5px solid $yellow;
   padding: .5em 1em .7em 1em;
   font-size: 1.5em;
-  color: #554236;
+  color: $brown;
 }
 
-.tile-header .add-item {
+.tile-header .add-task {
   float: right;
 }
 
-.day {
+.tile-header > .add-task > i {
+  vertical-align: middle;
+}
 
+.tile .today {
+  background-color: $light-grey;
+}
+
+.tile-item-name {
+  display: inline-block;
+  margin-right: 5px;
+  width: 75%;
+}
+
+.tile-item-time {
+  display: inline-block;
+  width: 20%;
 }
 
 .date {
   font-size: 0.6em;
-  color: #bbb;
-  float: right;
+  color: $grey;
 }
 
 /* Sidebar */
+.sidebar-wrapper {
+  background-color: $green;
+}
+
 .sidebar {
-  height: 100%;
-  padding-top: 15px;
-  background: #60B99A;
+  background: $green;
 }
 
 .sidebar .tile {
@@ -76,7 +157,7 @@ body {
 }
 
 .sidebar .tile-header {
-  background: #60B99A;
+  background: $green;
   color: white;
   border-bottom: none;
   padding: .5em .5em .5em 0;

@@ -1,10 +1,7 @@
 {
   "development": {
-    "username": "diddle",
-    "password": "diddle",
-    "database": "diddleplan",
-    "host":     "127.0.0.1",
-    "dialect":  "mysql"
+    "dialect": "sqlite",
+    "storage": "database_development.sqlite"
   },
   "test": {
     "username": "diddle",
