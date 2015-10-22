@@ -91,4 +91,54 @@ router.delete('/tasks/:id', function(req, res) {
   });
 });
 
+router.post('/tasks/recur/:id', function(req, res) {
+  // TODO: validation
+  var period = req.body.period;
+  var range  = req.body.range;
+
+  var Promise = models.sequelize.Promise;
+
+  locate_task(req, res, function(task) {
+    task.update({
+      isRecurring: true,
+      recPeriod: period,
+      recRange: range,
+    }).then(function(updatedTask) {
+      var endRange = 100;
+      if (range !== undefined) {
+        endRange = range;
+      }
+
+      var promises = [];
+
+      for (var i = 1; i <= endRange; i++) {
+        var nextDate;
+        if (period === 'week') {
+          nextDate = new Date(
+            new Date(updatedTask.date).getTime() + (i * 604800 * 1000)
+          );
+        } else if (period === 'month') {
+          // TODO: this doesn't work very well in edge cases, but maybe
+          //       that's okay
+          nextDate = new Date(updatedTask.date);
+          nextDate.setMonth(nextDate.getMonth() + i);
+        }
+
+        promises.push(
+          models.TaskRecurrence.create({
+            date: nextDate,
+            time: updatedTask.time,
+            TaskTaskID: updatedTask.taskID
+          }));
+      }
+
+      Promise.all(promises).then(function(results) {
+        res.json({ task: updatedTask, recurrences: results });
+      });
+    }, function(e) {
+      res.status(500).json(e);
+    });
+  });
+});
+
 module.exports = router;
