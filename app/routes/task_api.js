@@ -37,7 +37,7 @@ router.get('/tasks', function(req, res) {
         { date: null }
       ]
     },
-    include: [models.User]
+    include: [models.User, models.TaskRecurrence]
   }).then(function(tasks) {
     res.json(tasks);
   });
@@ -54,13 +54,16 @@ router.post('/tasks', function(req, res) {
 // Individual tasks
 
 var locate_task = function(req, res, callback) {
-  models.Task.findById(req.params.id).then(function(task) {
+  models.Task.findOne({
+    where: { taskID: req.params.id },
+    include: [models.TaskRecurrence]
+  }).then(function(task) {
     if (task != undefined) {
       callback(task);
     } else {
       res.status(404).json({ error: "Couldn't find a task with that ID." });
     }
-  }).catch(function(e) {
+  }).error(function(e) {
     res.status(500).json(e);
   });
 };
