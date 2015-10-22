@@ -165,6 +165,7 @@ angular.module('diddleplanApp')
         });
       });
     };
+    $scope.getNewExercises();
 
     $scope.isTodo = function(value) {
       return (value.taskType === 'todo') && !value.date;
