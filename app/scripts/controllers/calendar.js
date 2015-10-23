@@ -10,7 +10,35 @@
 angular.module('diddleplanApp')
   .controller('CalendarCtrl', function ($scope, tasks, TaskData, ExerciseService) {
 
+    $scope.convertRecurrences = function(task) {
+      if (task.TaskRecurrences === undefined) {
+        return;
+      }
+
+      for (var i = 0; i < task.TaskRecurrences.length; i++) {
+        var r = task.TaskRecurrences[i];
+
+        console.log(task);
+
+        var r_task = {
+          name: task.name,
+          taskType: task.taskType,
+          date: new Date(r.date).getTime(),
+          time: r.time,
+          moveable: false,
+          autoMoveable: false,
+          isRecurring: true,
+          isRecurrence: true
+        };
+
+        $scope.tasks.push(r_task);
+      }
+    };
+
     $scope.tasks = tasks.data;
+    for (var i = 0; i < $scope.tasks.length; i++) {
+      $scope.convertRecurrences($scope.tasks[i]);
+    }
     $scope.types = ['todo', 'exercise', 'meal', 'shopping'];
 
     $scope.removeTask = function(task) {
@@ -26,8 +54,8 @@ angular.module('diddleplanApp')
     $scope.calendar = [];
     $scope.today = Date.now();
     var oneDay = 86400000;
-    for (var i = -6; i < 12; ++i) {
-      $scope.calendar.push(Date.now() + oneDay * i);
+    for (var j = -6; j < 12; ++j) {
+      $scope.calendar.push(Date.now() + oneDay * j);
     }
     var now = new Date();
     $scope.lastYear = new Date(now.getFullYear() - 1, 0, 1).getTime();
@@ -99,14 +127,20 @@ angular.module('diddleplanApp')
       ExerciseService.getExercises().success(function() {
         TaskData.getTasks().success(function(tasks) {
           $scope.tasks = tasks;
+          for (var i = 0; i < $scope.tasks.length; i++) {
+            $scope.convertRecurrences($scope.tasks[i]);
+          }
         });
       });
     };
     $scope.getNewExercises();
 
     $scope.addRecurrence = function(task) {
-      // TODO
-      console.log(task);
+      TaskData.recurTask(task).success(function(response) {
+        $scope.removeTask(response.task);
+        $scope.tasks.push(response.task);
+        $scope.convertRecurrences(response.task);
+      });
     };
 
     $scope.isTodo = function(value) {
