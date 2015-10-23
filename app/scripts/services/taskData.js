@@ -25,6 +25,10 @@ angular.module('diddleplanService', [])
       });
     };
 
+    taskDataFunctions.unrecurTask = function(task) {
+      return $http.delete(urlBase + '/tasks/recur/' + task.taskID);
+    };
+
     taskDataFunctions.formatTime = function(time) {
       var result, m;
       var re = /^\s*([01]?\d|2[0-3]):?([0-5]\d)?\s*$/;

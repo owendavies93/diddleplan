@@ -18,7 +18,9 @@
         <label>Repeats</label>
         <input type="text" class="form-control" ng-model="item.recRange" placeholder="Blank for infinite">
       </div>
-      <button ng-click="addRecurrence(item)" class="btn btn-default btn-sm">Add</button>
+      <button ng-if="!item.isRecurring" ng-click="addRecurrence(item)" class="btn btn-default btn-sm">Add</button>
+      <button ng-if="item.isRecurring" ng-click="updateRecurrence(item)" class="btn btn-default btn-sm">Update</button>
+      <button ng-if="item.isRecurring" ng-click="removeRecurrence(item)" class="btn btn-danger btn-sm">Remove</button>
     </form>
   </div>
 </div>

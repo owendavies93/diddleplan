@@ -136,10 +136,28 @@ router.post('/tasks/recur/:id', function(req, res) {
       }
 
       Promise.all(promises).then(function(results) {
-        res.json({ task: updatedTask, recurrences: results });
+        locate_task(req, res, function(finalTask) {
+          res.json({ task: finalTask, recurrences: results });
+        });
       });
     }, function(e) {
       res.status(500).json(e);
+    });
+  });
+});
+
+router.delete('/tasks/recur/:id', function(req, res) {
+  locate_task(req, res, function(task) {
+    task.update({
+      isRecurring: false,
+      recPeriod: null,
+      recRange: null
+    }).then(function(updatedTask) {
+      models.TaskRecurrence.destroy({
+        where: { TaskTaskID: updatedTask.taskID }
+      }).then(function(updatedTask) {
+        res.json({ message: "Deleted recurrences." });
+      });
     });
   });
 });

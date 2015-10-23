@@ -56,6 +56,7 @@
                   ng-if="!item.isRecurrence"
                   bs-popover
                   class="btn btn-default btn--recur input-sm"
+                  ng-class="{'active': item.isRecurring}"
                   title="Add Recurrence"
                   data-auto-close="1"
                   placement="bottom"

@@ -17,9 +17,6 @@ angular.module('diddleplanApp')
 
       for (var i = 0; i < task.TaskRecurrences.length; i++) {
         var r = task.TaskRecurrences[i];
-
-        console.log(task);
-
         var r_task = {
           name: task.name,
           taskType: task.taskType,
@@ -28,10 +25,23 @@ angular.module('diddleplanApp')
           moveable: false,
           autoMoveable: false,
           isRecurring: true,
-          isRecurrence: true
+          isRecurrence: true,
+          TaskTaskID: task.taskID
         };
 
         $scope.tasks.push(r_task);
+      }
+    };
+
+    $scope.removeRecurrences = function(task) {
+      for (var i = 0; i < $scope.tasks.length; ++i) {
+        if (!$scope.tasks[i].isRecurrence) {
+          continue;
+        }
+
+        if ($scope.tasks[i].TaskTaskID === task.taskID) {
+          $scope.tasks.splice(i, 1);
+        }
       }
     };
 
@@ -137,10 +147,31 @@ angular.module('diddleplanApp')
 
     $scope.addRecurrence = function(task) {
       TaskData.recurTask(task).success(function(response) {
-        $scope.removeTask(response.task);
-        $scope.tasks.push(response.task);
-        $scope.convertRecurrences(response.task);
+        task.TaskRecurrences = response.task.TaskRecurrences;
+        task.isRecurring = true;
+        $scope.convertRecurrences(task);
       });
+    };
+
+    $scope.removeRecurrence = function(task) {
+      TaskData.unrecurTask(task).success(function() {
+        task.TaskRecurrences = [];
+        task.isRecurring = false;
+        task.recRange = undefined;
+        task.recPeriod = undefined;
+        $scope.removeRecurrences(task);
+      });
+    };
+
+    $scope.updateRecurrence = function(task) {
+      var tempRange = task.recRange;
+      var tempPeriod = task.recPeriod;
+
+      $scope.removeRecurrence(task);
+
+      task.recRange = tempRange;
+      task.recPeriod = tempPeriod;
+      $scope.addRecurrence(task);
     };
 
     $scope.isTodo = function(value) {
