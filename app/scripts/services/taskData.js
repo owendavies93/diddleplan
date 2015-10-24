@@ -18,6 +18,10 @@ angular.module('diddleplanService', [])
       return $http.put(urlBase + '/tasks/' + task.taskID, task);
     };
 
+    taskDataFunctions.deleteTask = function(task) {
+      return $http.delete(urlBase + '/tasks/' + task.taskID);
+    };
+
     taskDataFunctions.recurTask = function(task) {
       return $http.post(urlBase + '/tasks/recur/' + task.taskID, {
         period: task.recPeriod,

@@ -67,6 +67,7 @@
                   </button>
 
                   <span class="recur-icon" ng-if="item.isRecurrence"><i class="fa fa-repeat"></i></span>
+                  <span class="delete" ng-if="item.moveable" ng-click="deleteTask(item)"><i class="fa fa-times"></i></span>
                 </div>
               </li>
 

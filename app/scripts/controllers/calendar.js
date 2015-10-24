@@ -124,6 +124,14 @@ angular.module('diddleplanApp')
       });
     };
 
+    $scope.deleteTask = function(task) {
+      TaskData.deleteTask(task).success(function() {
+        $scope.removeTask(task);
+      }).error(function(response) {
+        console.log(response);
+      });
+    };
+
     var shoppingItem = {
       name: 'Shopping',
       type: 'shopping'
