@@ -86,9 +86,19 @@ router.get('/exercises/', isAuthed, function(req, res) {
       } else {
         for (var i = 0; i < result.length; i++) {
           var r    = result[i];
-          var d    = new Date(r.start_date_local);
+          var d    = new Date(r.start_date);
           var ts   = d.getTime();
-          var time = d.getHours() + ":" + d.getMinutes();
+          var mins = d.getMinutes();
+          if (mins < 10) {
+            mins = "0" + mins;
+          }
+
+          var hours = d.getHours();
+          if (hours < 10) {
+            hours = "0" + hours;
+          }
+
+          var time = hours + ":" + mins;
 
           models.Task.create({
             name: r.name,
