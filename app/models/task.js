@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
     description:  { type: DataTypes.TEXT, allowNull: false, defaultValue: '' },
     stravaID:     { type: DataTypes.INTEGER, allowNull: true, defaultValue: null },
     isRecurring:  { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
-    recPeriod:    { type: DataTypes.ENUM('weekly', 'monthly'), allowNull: true, defaultValue: null },
+    recPeriod:    { type: DataTypes.ENUM('week', 'month'), allowNull: true, defaultValue: null },
     recRange:     { type: DataTypes.INTEGER, allowNull: true, defaultValue: null }
   }, {
     classMethods: {
