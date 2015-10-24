@@ -106,11 +106,22 @@ angular.module('diddleplanApp')
     };
 
     $scope.updateTask = function(task) {
-      if (task.time === null || TaskData.formatTime(task.time) !== undefined) {
-        TaskData.updateTask(task).error(function(response) {
-          console.log(response);
-        });
+      var timeRe = /^\s*([01]\d|2[0-3]):([0-5]\d)\s*$/;
+
+      if (task.time !== null && task.time !== "") {
+        if (!task.time.match(timeRe)) {
+          task.validTime = false;
+          return;
+        }
+      } else if (task.time === "") {
+        task.time = null;
       }
+
+      task.validTime = true;
+
+      TaskData.updateTask(task).error(function(response) {
+        console.log(response);
+      });
     };
 
     var shoppingItem = {

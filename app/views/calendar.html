@@ -50,6 +50,7 @@
                   ng-change="updateTask(item)"
                   ng-disabled="item.isRecurrence"
                   class="background-{{item.taskType}} form-control input-sm tile-item-time"
+                  ng-class="{'invalid': item.validTime !== undefined && !item.validTime}"
                   placeholder="Time">
 
                 <button
