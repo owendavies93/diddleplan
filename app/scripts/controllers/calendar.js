@@ -26,7 +26,8 @@ angular.module('diddleplanApp')
           autoMoveable: false,
           isRecurring: true,
           isRecurrence: true,
-          TaskTaskID: task.taskID
+          TaskTaskID: task.taskID,
+          rID: r.recurrenceID
         };
 
         $scope.tasks.push(r_task);
@@ -40,6 +41,18 @@ angular.module('diddleplanApp')
         }
 
         if ($scope.tasks[i].TaskTaskID === task.taskID) {
+          $scope.tasks.splice(i, 1);
+        }
+      }
+    };
+
+    $scope.removeSingleRecurrence = function(recurrence) {
+      for (var i = 0; i < $scope.tasks.length; ++i) {
+        if (!$scope.tasks[i].isRecurrence) {
+          continue;
+        }
+
+        if ($scope.tasks[i].rID === recurrence.rID) {
           $scope.tasks.splice(i, 1);
         }
       }
@@ -125,11 +138,19 @@ angular.module('diddleplanApp')
     };
 
     $scope.deleteTask = function(task) {
-      TaskData.deleteTask(task).success(function() {
-        $scope.removeTask(task);
-      }).error(function(response) {
-        console.log(response);
-      });
+      if (task.isRecurrence) {
+        TaskData.deleteRecurrence(task).success(function() {
+          $scope.removeSingleRecurrence(task);
+        }).error(function(response) {
+          console.log(response);
+        });
+      } else {
+        TaskData.deleteTask(task).success(function() {
+          $scope.removeTask(task);
+        }).error(function(response) {
+          console.log(response);
+        });
+      }
     };
 
     var shoppingItem = {

@@ -162,4 +162,14 @@ router.delete('/tasks/recur/:id', function(req, res) {
   });
 });
 
+router.delete('/tasks/recurrence/:id', function(req, res) {
+  models.TaskRecurrence.findById(req.params.id).then(function(r) {
+    r.destroy().then(function() {
+      res.json({ message: "Recurrence deleted" });
+    }).catch(function(e) {
+      res.status(500).json(e);
+    });
+  });
+});
+
 module.exports = router;

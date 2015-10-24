@@ -57,17 +57,19 @@
                   <button
                     ng-if="!item.isRecurrence"
                     bs-popover
+                    close-popover
                     class="btn btn-default btn--recur input-sm"
                     ng-class="{'active': item.isRecurring}"
                     title="Add Recurrence"
                     data-auto-close="1"
                     placement="bottom"
+                    container="body"
                     data-template-url="views/popover.html">
                       <i class="fa fa-repeat"></i>
                   </button>
 
                   <span class="recur-icon" ng-if="item.isRecurrence"><i class="fa fa-repeat"></i></span>
-                  <span class="delete" ng-if="item.moveable" ng-click="deleteTask(item)"><i class="fa fa-times"></i></span>
+                  <span class="delete" ng-if="item.moveable || item.isRecurrence" ng-click="deleteTask(item)"><i class="fa fa-times"></i></span>
                 </div>
               </li>
 

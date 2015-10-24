@@ -33,5 +33,9 @@ angular.module('diddleplanService', [])
       return $http.delete(urlBase + '/tasks/recur/' + task.taskID);
     };
 
+    taskDataFunctions.deleteRecurrence = function(recurrence) {
+      return $http.delete(urlBase + '/tasks/recurrence/' + recurrence.rID);
+    };
+
     return taskDataFunctions;
   });
