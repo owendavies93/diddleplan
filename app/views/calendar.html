@@ -24,56 +24,58 @@
             <span class="add-task" ng-click="addTask('todo', day)"><i class="fa fa-plus"></i></span>
           </div>
 
-          <ul dnd-list="tasks"
-            dnd-allowed-types="types"
-            dnd-disable-if="false"
-            ng-attr-id="{{day}}">
+          <div class="tile-body">
+            <ul dnd-list="tasks"
+              dnd-allowed-types="types"
+              dnd-disable-if="false"
+              ng-attr-id="{{day}}">
 
-            <li ng-repeat="item in tasks | filterDate:day"
-              dnd-draggable="item"
-              dnd-type="item.taskType"
-              dnd-disable-if="item.taskType == 'other' || !item.moveable"
-              dnd-moved="removeTask(item)"
-              dnd-effect-allowed="move"
-              class="background-{{item.taskType}}">
-              <div class="handle"><i class="fa" ng-class="[{'fa-cutlery': item.taskType === 'meal'}, {'fa-heartbeat': item.taskType === 'exercise'}, {'fa-sticky-note': item.taskType === 'todo'}, {'fa-shopping-cart': item.taskType === 'shopping'}]"></i></div>
-              <div class="name" dnd-nodrag>
-                <input type="text"
-                  ng-model="item.name"
-                  ng-change="updateTask(item)"
-                  ng-disabled="item.isRecurrence"
-                  class="background-{{item.taskType}} form-control input-sm tile-item-name"
-                  placeholder="New Task">
+              <li ng-repeat="item in tasks | filterDate:day | orderBy:'time'"
+                dnd-draggable="item"
+                dnd-type="item.taskType"
+                dnd-disable-if="item.taskType == 'other' || !item.moveable"
+                dnd-moved="removeTask(item)"
+                dnd-effect-allowed="move"
+                class="background-{{item.taskType}}">
+                <div class="handle"><i class="fa" ng-class="[{'fa-cutlery': item.taskType === 'meal'}, {'fa-heartbeat': item.taskType === 'exercise'}, {'fa-sticky-note': item.taskType === 'todo'}, {'fa-shopping-cart': item.taskType === 'shopping'}]"></i></div>
+                <div class="name" dnd-nodrag>
+                  <input type="text"
+                    ng-model="item.name"
+                    ng-change="updateTask(item)"
+                    ng-disabled="item.isRecurrence"
+                    class="background-{{item.taskType}} form-control input-sm tile-item-name"
+                    placeholder="New Task">
 
-                <input type="text"
-                  ng-model="item.time"
-                  ng-change="updateTask(item)"
-                  ng-disabled="item.isRecurrence"
-                  class="background-{{item.taskType}} form-control input-sm tile-item-time"
-                  ng-class="{'invalid': item.validTime !== undefined && !item.validTime}"
-                  placeholder="Time">
+                  <input type="text"
+                    ng-model="item.time"
+                    ng-change="updateTask(item)"
+                    ng-disabled="item.isRecurrence"
+                    class="background-{{item.taskType}} form-control input-sm tile-item-time"
+                    ng-class="{'invalid': item.validTime !== undefined && !item.validTime}"
+                    placeholder="Time">
 
-                <button
-                  ng-if="!item.isRecurrence"
-                  bs-popover
-                  class="btn btn-default btn--recur input-sm"
-                  ng-class="{'active': item.isRecurring}"
-                  title="Add Recurrence"
-                  data-auto-close="1"
-                  placement="bottom"
-                  data-template-url="views/popover.html">
-                    <i class="fa fa-repeat"></i>
-                </button>
+                  <button
+                    ng-if="!item.isRecurrence"
+                    bs-popover
+                    class="btn btn-default btn--recur input-sm"
+                    ng-class="{'active': item.isRecurring}"
+                    title="Add Recurrence"
+                    data-auto-close="1"
+                    placement="bottom"
+                    data-template-url="views/popover.html">
+                      <i class="fa fa-repeat"></i>
+                  </button>
 
-                <span class="recur-icon" ng-if="item.isRecurrence"><i class="fa fa-repeat"></i></span>
-              </div>
-            </li>
+                  <span class="recur-icon" ng-if="item.isRecurrence"><i class="fa fa-repeat"></i></span>
+                </div>
+              </li>
 
-            <li class="dndPlaceholder">
-              Drop things here
-            </li>
+              <li class="dndPlaceholder">
+                Drop things here
+              </li>
 
-          </ul>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

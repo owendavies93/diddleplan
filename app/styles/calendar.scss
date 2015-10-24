@@ -114,6 +114,11 @@ body {
   color: $brown;
 }
 
+.tile-body {
+  height: 78%;
+  overflow-y: auto;
+}
+
 .tile-header .add-task {
   float: right;
 }
