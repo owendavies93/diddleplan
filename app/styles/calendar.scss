@@ -133,13 +133,18 @@ body {
 
 .tile-item-name {
   display: inline-block;
-  width: 60%;
+  width: 55%;
 }
 
 .tile-item-time {
   display: inline-block;
   margin-right: 1px;
   width: 20%;
+}
+
+.sidebar-item-name {
+  width: calc(100% - 20px);
+  float: left;
 }
 
 .invalid {
@@ -172,6 +177,10 @@ body {
 /*span*/.delete {
   margin-left: 5px;
   cursor: pointer;
+}
+
+.sidebar .delete {
+  vertical-align: sub;
 }
 
 .popover {
@@ -301,8 +310,7 @@ ul[dnd-list] input {
  * Handle positioning
  */
 .handle {
-  width: 3em;
-  padding: 5px;
+  padding: 5px 10px 5px 12px;
   text-align: center;
   cursor: move;
   float: left;

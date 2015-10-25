@@ -109,15 +109,16 @@
                 <input type="text"
                   ng-model="todo.name"
                   ng-change="updateTask(todo)"
-                  class="background-{{todo.taskType}} form-control input-sm"
+                  class="background-{{todo.taskType}} form-control input-sm sidebar-item-name"
                   placeholder="New Task">
+
+                <span class="delete" ng-click="deleteTask(todo)"><i class="fa fa-times"></i></span>
               </div>
             </li>
 
             <li class="dndPlaceholder">
               Drop todos here
             </li>
-
           </ul>
         </div>
       </div>
@@ -145,8 +146,10 @@
                 <input type="text"
                   ng-model="exercise.name"
                   ng-change="updateTask(exercise)"
-                  class="background-{{exercise.taskType}} form-control input-sm"
+                  class="background-{{exercise.taskType}} form-control input-sm sidebar-item-name"
                   placeholder="New Task">
+
+                <span class="delete" ng-click="deleteTask(exercise)"><i class="fa fa-times"></i></span>
               </div>
             </li>
 
@@ -182,8 +185,10 @@
                 <input type="text"
                   ng-model="meal.name"
                   ng-change="updateTask(meal)"
-                  class="background-{{meal.taskType}} form-control input-sm"
+                  class="background-{{meal.taskType}} form-control input-sm sidebar-item-name"
                   placeholder="New Task">
+
+                <span class="delete" ng-click="deleteTask(meal)"><i class="fa fa-times"></i></span>
               </div>
             </li>
 
@@ -217,8 +222,10 @@
               <div class="name" dnd-nodrag>
                 <input type="text"
                   ng-model="meal.name"
-                  class="background-{{meal.taskType}} form-control input-sm"
+                  class="background-{{meal.taskType}} form-control input-sm sidebar-item-name"
                   placeholder="New Task">
+
+                <span class="delete" ng-click="deleteTask(meal)"><i class="fa fa-times"></i></span>
               </div>
             </li>
 
