@@ -174,9 +174,36 @@ body {
   margin-left: 5px;
 }
 
-/*span*/.delete {
+/*span*/.delete, .detail {
   margin-left: 5px;
   cursor: pointer;
+}
+
+/*div*/.detail-view {
+  padding: 5px 10px;
+
+  & > .form-inline > /*div*/.form-group {
+    display: block;
+  }
+
+  input, textarea, select {
+    margin-bottom: 5px;
+    border-radius: 0;
+  }
+
+  /*span*/.hide-details {
+    float: right;
+    cursor: pointer;
+    font-size: 12pt;
+    color: black;
+    margin-bottom: 5px;
+  }
+
+  /*textarea*/.item-description {
+    width: 100%;
+    height: auto;
+    resize: none;
+  }
 }
 
 .sidebar .delete {
@@ -317,6 +344,6 @@ ul[dnd-list] input {
 }
 
 .name {
-  width: calc(100% - 4em);
+  width: calc(100% - 45px);
   float: left;
 }

@@ -21,45 +21,54 @@
             <span class="day">{{day | date:'EEEE'}}</span>
             <span class="date">{{day | date:'MMM d'}}</span> <!--
             --><span ng-if="day >= nextYear || day <= lastYear" class="date">{{day | date:'yyyy'}}</span>
-            <span class="add-task" ng-click="addTask('todo', day)"><i class="fa fa-plus"></i></span>
+            <span class="add-task" ng-click="addTask('todo', day)">
+          <i class="fa fa-plus"></i></span>
           </div>
 
-          <div class="tile-body">
-            <ul dnd-list="tasks"
-              dnd-allowed-types="types"
-              dnd-disable-if="false"
-              ng-attr-id="{{day}}">
-
-              <li ng-repeat="item in tasks | filterDate:day | orderBy:'time'"
-                dnd-draggable="item"
-                dnd-type="item.taskType"
-                dnd-disable-if="item.taskType == 'other' || !item.moveable"
-                dnd-moved="removeTask(item)"
-                dnd-effect-allowed="move"
-                class="background-{{item.taskType}}">
-                <div class="handle"><i class="fa" ng-class="[{'fa-cutlery': item.taskType === 'meal'}, {'fa-heartbeat': item.taskType === 'exercise'}, {'fa-sticky-note': item.taskType === 'todo'}, {'fa-shopping-cart': item.taskType === 'shopping'}]"></i></div>
-                <div class="name" dnd-nodrag>
+          <div ng-switch="detailView[day]" class="tile-body">
+            <div ng-switch-when="1" class="detail-view">
+              {{ item = tasksForDate[day]; "" }}
+              <span class="hide-details" ng-click="hideDetailView(day)"><i class="fa fa-times"></i></span>
+              <div class="clearfix"></div>
+              <form class="form-inline">
+                <div class="form-group">
                   <input type="text"
-                    ng-model="item.name"
-                    ng-change="updateTask(item)"
-                    ng-disabled="item.isRecurrence"
-                    class="background-{{item.taskType}} form-control input-sm tile-item-name"
+                    ng-model="tasksForDate[day].name"
+                    ng-change="updateTask(tasksForDate[day])"
+                    class="background-{{tasksForDate[day].taskType}} form-control input-sm"
                     placeholder="New Task">
-
+                </div>
+                <div class="form-group">
+                  <textarea
+                    ng-model="tasksForDate[day].description"
+                    ng-blur="updateTask(tasksForDate[day])"
+                    class="form-control item-description"
+                    rows="1">
+                  </textarea>
+                </div>
+                <div class="form-group">
+                  <label>Time: </label>
+                  <select
+                    ng-model="tasksForDate[day].time"
+                    ng-options="t for t in types"
+                    class="form-control input-sm">
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Type: </label>
                   <input type="text"
                     ng-model="item.time"
                     ng-change="updateTask(item)"
                     ng-disabled="item.isRecurrence"
                     class="background-{{item.taskType}} form-control input-sm tile-item-time"
-                    ng-class="{'invalid': item.validTime !== undefined && !item.validTime}"
                     placeholder="Time">
-
+                </div>
+                <div class="form-group" ng-if="!tasksForDate[day].isRecurrence">
+                  <label>Recurrence: </label>
                   <button
-                    ng-if="!item.isRecurrence"
                     bs-popover
-                    close-popover
                     class="btn btn-default btn--recur input-sm"
-                    ng-class="{'active': item.isRecurring}"
+                    ng-class="{'active': tasksForDate[day].isRecurring}"
                     title="Add Recurrence"
                     data-auto-close="1"
                     placement="bottom"
@@ -67,17 +76,62 @@
                     data-template-url="views/popover.html">
                       <i class="fa fa-repeat"></i>
                   </button>
-
-                  <span class="recur-icon" ng-if="item.isRecurrence"><i class="fa fa-repeat"></i></span>
-                  <span class="delete" ng-if="item.moveable || item.isRecurrence" ng-click="deleteTask(item)"><i class="fa fa-times"></i></span>
                 </div>
-              </li>
+              </form>
+            </div>
+            <div ng-switch-default>
+              <ul dnd-list="tasks"
+                dnd-allowed-types="types"
+                dnd-disable-if="false"
+                ng-attr-id="{{day}}">
 
-              <li class="dndPlaceholder">
-                Drop things here
-              </li>
+                <li ng-repeat="item in tasks | filterDate:day"
+                  dnd-draggable="item"
+                  dnd-type="item.taskType"
+                  dnd-disable-if="item.taskType == 'other' || !item.moveable"
+                  dnd-moved="removeTask(item)"
+                  dnd-effect-allowed="move"
+                  class="background-{{item.taskType}}">
+                  <div class="handle"><i class="fa" ng-class="[{'fa-cutlery': item.taskType === 'meal'}, {'fa-heartbeat': item.taskType === 'exercise'}, {'fa-sticky-note': item.taskType === 'todo'}, {'fa-shopping-cart': item.taskType === 'shopping'}]"></i></div>
+                  <div class="name" dnd-nodrag>
+                    <input type="text"
+                      ng-model="item.name"
+                      ng-change="updateTask(item)"
+                      ng-disabled="item.isRecurrence"
+                      class="background-{{item.taskType}} form-control input-sm tile-item-name"
+                      placeholder="New Task">
 
-            </ul>
+                    <input type="text"
+                      ng-model="item.time"
+                      ng-change="updateTask(item)"
+                      ng-disabled="item.isRecurrence"
+                      class="background-{{item.taskType}} form-control input-sm tile-item-time"
+                      placeholder="Time">
+
+                    <button
+                      ng-if="!item.isRecurrence"
+                      bs-popover
+                      class="btn btn-default btn--recur input-sm"
+                      ng-class="{'active': item.isRecurring}"
+                      title="Add Recurrence"
+                      data-auto-close="1"
+                      placement="bottom"
+                      container="body"
+                      data-template-url="views/popover.html">
+                        <i class="fa fa-repeat"></i>
+                    </button>
+
+                    <span class="recur-icon" ng-if="item.isRecurrence"><i class="fa fa-repeat"></i></span>
+                    <span class="detail" ng-if="!item.isRecurrence" ng-click="showDetailView(item)"><i class="fa fa-search"></i></span>
+                    <span class="delete" ng-if="item.moveable || item.isRecurrence" ng-click="deleteTask(item)"><i class="fa fa-times"></i></span>
+                  </div>
+                </li>
+
+                <li class="dndPlaceholder">
+                  Drop things here
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

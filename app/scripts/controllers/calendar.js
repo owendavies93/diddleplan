@@ -58,6 +58,14 @@ angular.module('diddleplanApp')
       }
     };
 
+    var roundDateToDay = function(date) {
+      date.setHours(0);
+      date.setMinutes(0);
+      date.setSeconds(0);
+      date.setMilliseconds(0);
+      return date;
+    };
+
     $scope.tasks = tasks.data;
     for (var i = 0; i < $scope.tasks.length; i++) {
       $scope.convertRecurrences($scope.tasks[i]);
@@ -75,10 +83,10 @@ angular.module('diddleplanApp')
 
     // create some dates
     $scope.calendar = [];
-    $scope.today = Date.now();
+    $scope.today = roundDateToDay(new Date).getTime();
     var oneDay = 86400000;
     for (var j = -6; j < 12; ++j) {
-      $scope.calendar.push(Date.now() + oneDay * j);
+      $scope.calendar.push($scope.today + oneDay * j);
     }
     var now = new Date();
     $scope.lastYear = new Date(now.getFullYear() - 1, 0, 1).getTime();
@@ -99,11 +107,13 @@ angular.module('diddleplanApp')
     };
 
     $scope.addTask = function(type, date) {
+      var d = roundDateToDay(new Date(task.date));
+
       // TODO: Need to pass in or work these out
       var newTaskData = {
         "name": "",
         "taskType": type,
-        "date": date,
+        "date": d.getTime(),
         "moveable": true,
         "autoMoveable": null,
         "UserId": 1
@@ -233,4 +243,21 @@ angular.module('diddleplanApp')
     $scope.hasDate = function(value, date) {
       return value && value.date === date;
     };
+
+    $scope.detailView = {};
+    $scope.tasksForDate = {};
+    $scope.showDetailView = function(task) {
+      var d = roundDateToDay(new Date(task.date));
+
+      $scope.detailView[d.getTime()] = 1;
+      $scope.tasksForDate[d.getTime()] = task;
+    };
+
+    $scope.hideDetailView = function(day) {
+      var d = roundDateToDay(new Date(day));
+
+      $scope.detailView[d.getTime()] = undefined;
+      $scope.tasksForDate[d.getTime()] = undefined;
+    };
+
   });
