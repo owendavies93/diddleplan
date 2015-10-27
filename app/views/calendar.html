@@ -61,6 +61,7 @@
                     ng-change="updateTask(item)"
                     ng-disabled="item.isRecurrence"
                     class="background-{{item.taskType}} form-control input-sm tile-item-time"
+                    ng-class="{ 'invalid': item.validTime !== undefined && !item.validTime }"
                     placeholder="Time">
                 </div>
                 <div class="form-group" ng-if="!tasksForDate[day].isRecurrence">
@@ -106,11 +107,12 @@
                       ng-change="updateTask(item)"
                       ng-disabled="item.isRecurrence"
                       class="background-{{item.taskType}} form-control input-sm tile-item-time"
+                      ng-class="{ 'invalid': item.validTime !== undefined && !item.validTime }"
                       placeholder="Time">
 
                     <button
                       ng-if="!item.isRecurrence"
-                      bs-popover
+                      bs-popover close-popover
                       class="btn btn-default btn--recur input-sm"
                       ng-class="{'active': item.isRecurring}"
                       title="Add Recurrence"
