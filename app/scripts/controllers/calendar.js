@@ -8,36 +8,69 @@
  * Controller of the diddleplanApp
  */
 angular.module('diddleplanApp')
-  .controller('CalendarCtrl', function ($scope) {
-    $scope.types = ['todo', 'exercise', 'meal', 'shopping'];
+  .controller('CalendarCtrl', function ($scope, tasks, TaskData, ExerciseService) {
 
-    $scope.tasks = [
-      {
-        name: 'Clean the bathrooms',
-        type: 'todo',
-        date: Date.now()
-      },
-      {
-        name: 'Mow the lawn',
-        type: 'todo'
-      },
-      {
-        name: 'Washing',
-        type: 'todo'
-      },
-      {
-        name: 'Run',
-        type: 'exercise'
-      },
-      {
-        name: 'Beef Stir Fry',
-        type: 'meal'
-      },
-      {
-        name: 'Curry',
-        type: 'shopping'
+    $scope.convertRecurrences = function(task) {
+      if (task.TaskRecurrences === undefined) {
+        return;
       }
-    ];
+
+      for (var i = 0; i < task.TaskRecurrences.length; i++) {
+        var r = task.TaskRecurrences[i];
+        var r_task = {
+          name: task.name,
+          taskType: task.taskType,
+          date: new Date(r.date).getTime(),
+          time: r.time,
+          moveable: false,
+          autoMoveable: false,
+          isRecurring: true,
+          isRecurrence: true,
+          TaskTaskID: task.taskID,
+          rID: r.recurrenceID
+        };
+
+        $scope.tasks.push(r_task);
+      }
+    };
+
+    $scope.removeRecurrences = function(task) {
+      for (var i = 0; i < $scope.tasks.length; ++i) {
+        if (!$scope.tasks[i].isRecurrence) {
+          continue;
+        }
+
+        if ($scope.tasks[i].TaskTaskID === task.taskID) {
+          $scope.tasks.splice(i, 1);
+        }
+      }
+    };
+
+    $scope.removeSingleRecurrence = function(recurrence) {
+      for (var i = 0; i < $scope.tasks.length; ++i) {
+        if (!$scope.tasks[i].isRecurrence) {
+          continue;
+        }
+
+        if ($scope.tasks[i].rID === recurrence.rID) {
+          $scope.tasks.splice(i, 1);
+        }
+      }
+    };
+
+    var roundDateToDay = function(date) {
+      date.setHours(0);
+      date.setMinutes(0);
+      date.setSeconds(0);
+      date.setMilliseconds(0);
+      return date;
+    };
+
+    $scope.tasks = tasks.data;
+    for (var i = 0; i < $scope.tasks.length; i++) {
+      $scope.convertRecurrences($scope.tasks[i]);
+    }
+    $scope.types = ['todo', 'exercise', 'meal', 'shopping'];
 
     $scope.removeTask = function(task) {
       for (var i = 0; i < $scope.tasks.length; ++i) {
@@ -48,20 +81,86 @@ angular.module('diddleplanApp')
       }
     };
 
-    $scope.calendar = [Date.now()];
-
     // create some dates
-    for (var i = 1; i < 9; ++i) {
-      var oneDay = 86400000;
-      $scope.calendar.push(Date.now() + oneDay * i);
+    $scope.calendar = [];
+    $scope.today = roundDateToDay(new Date).getTime();
+    var oneDay = 86400000;
+    for (var j = -6; j < 12; ++j) {
+      $scope.calendar.push($scope.today + oneDay * j);
     }
+    var now = new Date();
+    $scope.lastYear = new Date(now.getFullYear() - 1, 0, 1).getTime();
+    $scope.nextYear = new Date(now.getFullYear() + 1, 0, 1).getTime();
 
-    $scope.addItem = function(type, list) {
-      $scope[list].push({
-        name: '',
-        type: type
+    $scope.loadPastDays = function() {
+      var last = $scope.calendar[0];
+      for (var i = -1; i >= -9; --i) {
+        $scope.calendar.unshift(last + (oneDay * i));
+      }
+    };
+
+    $scope.loadFutureDays = function() {
+      var last = $scope.calendar[$scope.calendar.length - 1];
+      for (var i = 1; i <= 9; ++i) {
+        $scope.calendar.push(last + (oneDay * i));
+      }
+    };
+
+    $scope.addTask = function(type, date) {
+      var d = roundDateToDay(new Date(task.date));
+
+      // TODO: Need to pass in or work these out
+      var newTaskData = {
+        "name": "",
+        "taskType": type,
+        "date": d.getTime(),
+        "moveable": true,
+        "autoMoveable": null,
+        "UserId": 1
+      };
+
+      TaskData.addTask(newTaskData)
+        .success(function(response) {
+          $scope.tasks.push(response);
+        })
+        .error(function(response) {
+          console.log(response);
+        });
+    };
+
+    $scope.updateTask = function(task) {
+      var timeRe = /^\s*([01]\d|2[0-3]):([0-5]\d)\s*$/;
+
+      if (task.time !== null && task.time !== "") {
+        if (!task.time.match(timeRe)) {
+          task.validTime = false;
+          return;
+        }
+      } else if (task.time === "") {
+        task.time = null;
+      }
+
+      task.validTime = true;
+
+      TaskData.updateTask(task).error(function(response) {
+        console.log(response);
       });
-      // $scope.calculateShoppingTrip();
+    };
+
+    $scope.deleteTask = function(task) {
+      if (task.isRecurrence) {
+        TaskData.deleteRecurrence(task).success(function() {
+          $scope.removeSingleRecurrence(task);
+        }).error(function(response) {
+          console.log(response);
+        });
+      } else {
+        TaskData.deleteTask(task).success(function() {
+          $scope.removeTask(task);
+        }).error(function(response) {
+          console.log(response);
+        });
+      }
     };
 
     var shoppingItem = {
@@ -73,10 +172,9 @@ angular.module('diddleplanApp')
       var remainingMeals = $scope.meals.length;
       for (var i = 0; i < remainingMeals; ++i) {
         var items = $scope.calendar[i].items;
-        console.log(items);
 
         for (var j = 0; j < items; ++j) {
-          if (items[j].type === 'meal') {
+          if (items[j].taskType === 'meal') {
             remainingMeals++;
           }
         }
@@ -85,27 +183,81 @@ angular.module('diddleplanApp')
       $scope.calendar[remainingMeals].items.push(shoppingItem);
     };
 
-    // $scope.calculateShoppingTrip();
+    $scope.getNewExercises = function() {
+      ExerciseService.getExercises().success(function() {
+        TaskData.getTasks().success(function(tasks) {
+          $scope.tasks = tasks;
+          for (var i = 0; i < $scope.tasks.length; i++) {
+            $scope.convertRecurrences($scope.tasks[i]);
+          }
+        });
+      });
+    };
+    $scope.getNewExercises();
+
+    $scope.addRecurrence = function(task) {
+      TaskData.recurTask(task).success(function(response) {
+        task.TaskRecurrences = response.task.TaskRecurrences;
+        task.isRecurring = true;
+        $scope.convertRecurrences(task);
+      });
+    };
+
+    $scope.removeRecurrence = function(task) {
+      TaskData.unrecurTask(task).success(function() {
+        task.TaskRecurrences = [];
+        task.isRecurring = false;
+        task.recRange = undefined;
+        task.recPeriod = undefined;
+        $scope.removeRecurrences(task);
+      });
+    };
+
+    $scope.updateRecurrence = function(task) {
+      var tempRange = task.recRange;
+      var tempPeriod = task.recPeriod;
+
+      $scope.removeRecurrence(task);
+
+      task.recRange = tempRange;
+      task.recPeriod = tempPeriod;
+      $scope.addRecurrence(task);
+    };
 
     $scope.isTodo = function(value) {
-      return (value.type === 'todo') && !value.date;
+      return (value.taskType === 'todo') && !value.date;
     };
 
     $scope.isExercise = function(value) {
-      return (value.type === 'exercise') && !value.date;
+      return (value.taskType === 'exercise') && !value.date;
     };
 
     $scope.isMeal = function(value) {
-      return (value.type === 'meal') && !value.date;
+      return (value.taskType === 'meal') && !value.date;
     };
 
     $scope.isShopping = function(value) {
-      return (value.type === 'shopping') && !value.date;
+      return (value.taskType === 'shopping') && !value.date;
     };
 
     $scope.hasDate = function(value, date) {
-      console.log(value);
-      return value &&  value.date === date;
+      return value && value.date === date;
+    };
+
+    $scope.detailView = {};
+    $scope.tasksForDate = {};
+    $scope.showDetailView = function(task) {
+      var d = roundDateToDay(new Date(task.date));
+
+      $scope.detailView[d.getTime()] = 1;
+      $scope.tasksForDate[d.getTime()] = task;
+    };
+
+    $scope.hideDetailView = function(day) {
+      var d = roundDateToDay(new Date(day));
+
+      $scope.detailView[d.getTime()] = undefined;
+      $scope.tasksForDate[d.getTime()] = undefined;
     };
 
   });

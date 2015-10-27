@@ -23,7 +23,7 @@
 
     <div ui-view></div>
 
-    <!-- build:js(.) scripts/vendor.js -->
+    <!-- build:js({.tmp,app}) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
@@ -31,12 +31,22 @@
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js"></script>
     <script src="bower_components/angular-fontawesome/dist/angular-fontawesome.js"></script>
+    <script src="bower_components/angular-scroll/angular-scroll.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/calendar.js"></script>
+        <script src="scripts/controllers/auth.js"></script>
+        <script src="scripts/services/taskData.js"></script>
+        <script src="scripts/services/auth.js"></script>
+        <script src="scripts/services/exercise.js"></script>
+        <script src="scripts/directives/scrollIf.js"></script>
+        <script src="scripts/directives/infiniteScroll.js"></script>
+        <script src="scripts/directives/closePopover.js"></script>
         <script src="scripts/filters/filterdate.js"></script>
         <!-- endbuild -->
 </body>

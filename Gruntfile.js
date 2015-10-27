@@ -44,7 +44,7 @@ module.exports = function (grunt) {
       },
       prod: {
         options: {
-          script: 'app/server.js',
+          script: 'app/prod_server.js',
           node_env: 'production'
         }
       },
@@ -78,7 +78,7 @@ module.exports = function (grunt) {
         files: ['Gruntfile.js']
       },
       express: {
-        files: ['app/server.js'],
+        files: ['app/*.js', 'app/routes/*.js'],
         tasks: ['express:dev'],
         options: {
           livereload: true,
@@ -363,8 +363,10 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
+            'prod_server.js',
             'images/{,*/}*.{webp}',
-            'styles/fonts/{,*/}*.*'
+            'styles/fonts/{,*/}*.*',
+            'views/*.html',
           ]
         }, {
           expand: true,

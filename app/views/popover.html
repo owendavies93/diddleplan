@@ -1,0 +1,26 @@
+<div class="popover">
+  <div class="arrow"></div>
+  <h3 class="popover-title" ng-bind="title" ng-show="title"></h3>
+  <div class="popover-content">
+    <form class="form-horizontal form--popover">
+      <div class="form-group">
+        <label>
+          <input type="radio" ng-model="item.recPeriod" value="week">
+          Weekly
+        </label>
+        &nbsp;
+        <label>
+          <input type="radio" ng-model="item.recPeriod" value="month">
+          Monthly
+        </label>
+      </div>
+      <div class="form-group">
+        <label>Repeats</label>
+        <input type="text" class="form-control" ng-model="item.recRange" placeholder="Blank for infinite">
+      </div>
+      <button ng-if="!item.isRecurring" ng-click="addRecurrence(item)" class="btn btn-default btn-sm">Add</button>
+      <button ng-if="item.isRecurring" ng-click="updateRecurrence(item)" class="btn btn-default btn-sm">Update</button>
+      <button ng-if="item.isRecurring" ng-click="removeRecurrence(item)" class="btn btn-danger btn-sm">Remove</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">DiddlePlan</a>
+    </div>
+  </nav>
+</div><!-- /.container-fluid -->
+
+<div class="wrapper login-form">
+  <form class="form-horizontal">
+    <div class="form-group">
+      <input type="text" class="form-control input-sm" name="username" placeholder='Enter Username' ng-model="login.username">
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control input-sm" name="password" placeholder='Password' ng-model="login.password">
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-default" ng-click="login(login.username, login.password)">Log In</button>
+    </div>
+  </form>
+</div>
