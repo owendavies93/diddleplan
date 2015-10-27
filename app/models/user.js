@@ -6,6 +6,7 @@ module.exports = function(sequelize, DataTypes) {
   var User = passportLocalSequelize.defineUser(sequelize, {
     stravaID: { type: DataTypes.INTEGER, allowNull: true, defaultValue: null },
     stravaAuthToken: { type: DataTypes.STRING, allowNull: true, defaultValue: null },
+    colour: { type: DataTypes.STRING, allowNull: true, defaultValue: null }
   }, {
     classMethods: {
       associate: function(models) {
