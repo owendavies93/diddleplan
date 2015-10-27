@@ -366,7 +366,11 @@ module.exports = function (grunt) {
             'prod_server.js',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*',
-            'views/*.html'
+            'views/*.html',
+            'routes/*.js',
+            'models/*.js',
+            'config/db.json',
+            'config/strava_config.json'
           ]
         }, {
           expand: true,
