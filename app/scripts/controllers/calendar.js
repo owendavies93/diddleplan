@@ -8,7 +8,7 @@
  * Controller of the diddleplanApp
  */
 angular.module('diddleplanApp')
-  .controller('CalendarCtrl', function ($scope, tasks, TaskData, ExerciseService) {
+  .controller('CalendarCtrl', function ($scope, tasks, TaskData, ExerciseService, user, AuthService) {
 
     $scope.convertRecurrences = function(task) {
       if (task.TaskRecurrences === undefined) {
@@ -258,6 +258,23 @@ angular.module('diddleplanApp')
 
       $scope.detailView[d.getTime()] = undefined;
       $scope.tasksForDate[d.getTime()] = undefined;
+    };
+
+    $scope.possibleColours = [
+      '#A0C4E4', '#E4A0B4', '#D2E4A0'
+    ];
+    $scope.currentUser = user.data;
+
+    $scope.updatePreferences = function(colour) {
+      var prefs = {
+        colour: colour
+      };
+
+      AuthService.updateUser(prefs).success(function(response) {
+        $scope.currentUser = response.user;
+      }).error(function(response) {
+        console.log(response);
+      });
     };
 
   });

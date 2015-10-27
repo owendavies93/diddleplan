@@ -46,11 +46,12 @@ angular
         templateUrl: "/views/calendar.html",
         controller: "CalendarCtrl",
         resolve: {
-          tasks: ['TaskData',
-            function(tasks) {
-              return tasks.getTasks();
-            }
-          ],
+          tasks: function(TaskData) {
+            return TaskData.getTasks();
+          },
+          user: function(AuthService) {
+            return AuthService.currentUser();
+          },
           auth: function(AuthService) {
             return AuthService.isAuthed();
           }

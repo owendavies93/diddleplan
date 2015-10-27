@@ -1,0 +1,17 @@
+<div class="popover">
+  <div class="arrow"></div>
+  <h3 class="popover-title" ng-bind="title" ng-show="title"></h3>
+  <div class="popover-content">
+    <label>Colour:</label><br/>
+    <ul class="colour-picker">
+      <li ng-repeat="c in possibleColours">
+        <div
+          style="background-color: {{c}}"
+          class="colour-option"
+          ng-class="{ 'selected': c == currentUser.colour }"
+          ng-click="updatePreferences(c)">
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -50,12 +50,30 @@ router.post('/users/login', function (req, res, next) {
   })(req, res, next);
 });
 
-router.get('/users/authed', function (req, res) {
+function isAuthed(req, res, next) {
   if (req.isAuthenticated()) {
-    res.status(200).send();
+    return next();
   } else {
-    res.status(401).end();
+    res.send(401);
   }
+}
+
+router.get('/users/authed', isAuthed, function (req, res) {
+  res.status(200).send();
+});
+
+router.get('/users/current', isAuthed, function(req, res) {
+  res.status(200).send(req.user);
+});
+
+router.put('/users', isAuthed, function(req, res) {
+  models.User.findOne({
+    where: { username: req.user.username }
+  }).then(function(user) {
+    user.update(req.body).then(function(updatedUser) {
+      res.json({ user: updatedUser });
+    });
+  });
 });
 
 module.exports = router;

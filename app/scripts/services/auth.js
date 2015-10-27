@@ -14,5 +14,13 @@ angular.module('diddleplanService')
         { username: username, password : password });
     };
 
+    authFunctions.currentUser = function () {
+      return $http.get(urlBase + '/users/current');
+    };
+
+    authFunctions.updateUser = function(preferences) {
+      return $http.put(urlBase + '/users', preferences);
+    };
+
     return authFunctions;
   });

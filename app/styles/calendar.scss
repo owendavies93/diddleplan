@@ -36,14 +36,6 @@ body {
   min-height: $navbar-height;
 }
 
-.navbar-header {
-  text-align: center;
-}
-
-.navbar-header .navbar-brand {
-  color: $offwhite;
-}
-
 .wrapper {
   width: 100%;
   height: 100%;
@@ -79,8 +71,49 @@ body {
   padding-top: $navbar-height;
 }
 
-.sidebar {
-  // height: 100%;
+/* Navbar */
+
+.navbar-header {
+  text-align: center;
+}
+
+.navbar-header .navbar-brand {
+  color: $offwhite;
+}
+
+/*div*/.navbar--user {
+  float: right;
+  padding: 15px 0px;
+
+  a {
+    color: white;
+
+    &:hover, &:active, &:focus {
+      color: white;
+      text-decoration: none;
+    }
+  }
+}
+
+/*ul*/.colour-picker {
+  list-style-type: none;
+  padding: 0;
+
+  li {
+    margin-left: 0;
+    padding-right: 10px;
+    display: inline-block;
+
+    /*div*/.colour-option {
+      height: 50px;
+      width: 50px;
+      cursor: pointer;
+
+      &.selected {
+        border: 1px solid black;
+      }
+    }
+  }
 }
 
 /* Main content */
