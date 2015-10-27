@@ -83,7 +83,7 @@ angular.module('diddleplanApp')
 
     // create some dates
     $scope.calendar = [];
-    $scope.today = roundDateToDay(new Date).getTime();
+    $scope.today = roundDateToDay(new Date()).getTime();
     var oneDay = 86400000;
     for (var j = -6; j < 12; ++j) {
       $scope.calendar.push($scope.today + oneDay * j);
@@ -107,7 +107,7 @@ angular.module('diddleplanApp')
     };
 
     $scope.addTask = function(type, date) {
-      var d = roundDateToDay(new Date(task.date));
+      var d = roundDateToDay(new Date(date));
 
       // TODO: Need to pass in or work these out
       var newTaskData = {
