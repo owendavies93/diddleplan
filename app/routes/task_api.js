@@ -1,6 +1,8 @@
 'use strict';
 
 var express = require('express');
+var ical    = require('ical.js');
+var request = require('request');
 var models  = require('../models');
 var router  = express.Router();
 
@@ -169,6 +171,45 @@ router.delete('/tasks/recurrence/:id', function(req, res) {
     }).catch(function(e) {
       res.status(500).json(e);
     });
+  });
+});
+
+// Special Tasks
+
+router.post('/tasks/special/import', function(req, res) {
+  var url = req.body.ical_url;
+
+  if (!url) {
+    res.status(400).json({ error: "Need to provide an ical_url parameter" });
+  }
+
+  request.get(url, function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var jCal = ical.parse(body);
+      var comp = new ICAL.Component(jCal);
+      var events = comp.getAllSubcomponents('vevent');
+
+      var promises = [];
+
+      for (var i = 0; i < events.length; i++) {
+        var e = new ICAL.Event(events[i]);
+        var summary = e.summary;
+        var date = e.startDate;
+
+        promises.push(
+          models.SpecialTask.create({
+            name: summary,
+            date: date
+          }));
+      }
+
+      Promise.all(promises).then(function(results) {
+        res.json({ results: results });
+      });
+
+    } else {
+      res.status(response.statusCode).json({ error: error });
+    }
   });
 });
 
